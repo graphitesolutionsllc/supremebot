@@ -6,14 +6,14 @@ from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException
 
 root_url = 'http://www.supremenewyork.com/shop'
-all_url = 'http://www.supremenewyork.com/shop/all'
+all_url = 'http://www.supremenewyork.com/shop/all/jackets'
 root_types = []
 checkout_url = "https://www.supremenewyork.com/checkout"
 
-driver = webdriver.Chrome('C:/Users/Duffy/chromedriver.exe')
+driver = webdriver.Chrome('C:/chromedriver.exe')
 
 buyerName='Supreme Buyer'
-buyerMail='mydickis14cmlong@nospace.com'
+buyerMail='dmd9042@gmail.com'
 buyerTele='133'
 buyerAdress='Area 31'
 buyerCity='Nirvana'
@@ -24,6 +24,7 @@ buyerCardNumber='4117733984087674'
 buyerCardExpMonth='07'
 buyerCardExpYear='2021'
 buyerCardCVV = '454'
+buyerMaxPrice = 0
 
 def add_item(url, size=None, style=None):
     driver.get(url)
@@ -71,7 +72,7 @@ def checkout():
     except NoSuchElementException:
         print("Error: Could not Checkout!")
 
-def view_all(inStock=False):
+def view_all(inStock=False, item=None):
     in_stock = 0
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
@@ -84,25 +85,13 @@ def view_all(inStock=False):
         if("sold_out_tag" in s):
             pass
         else:
+            i = s[3].split('/')
+            if(item!= None and item==i):
+                pass
             url = "http://www.supremenewyork.com" + s[3]
             url_list.append(url)
             add_item(url)
             in_stock+=1
-    """
-    for x in url_list:
-        if(inStock):
-            source_temp = requests.get(x).text
-            soup_temp = BeautifulSoup(source_temp, 'html.parser')
-            avail = soup_temp.find_all("input", class_="button")
-            for a in avail:
-                s = str(a)
-                b = s.split('"')
-                if ('add to cart' in b):
-                    in_stock += 1
-                    print(x+" IN STOCK")
-        else:
-            print(x)
-    """
     print(str(in_stock) + " items in stock")
     for i in url_list:
         print(i)
@@ -262,6 +251,11 @@ def bot_behavior(time_delay):
     print("Welcome to Supreme Bot 2018\n---------------------------\n"
           "Type help for a list of commands")
     cmd=""
+    buyerMaxPrice = int(input("Please enter the maximum you would like to spend: "))
+    global buyerName
+    buyerName = input("Enter your card name: ")
+    global buyerCardCVV
+    buyerCardCVV = '666'
     while(cmd!="quit"):
         cmd=input(">")
         if(cmd=="item"):
