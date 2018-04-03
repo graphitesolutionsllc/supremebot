@@ -1,0 +1,28 @@
+missing module named resource - imported by posix, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named posix - imported by os, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named _posixsubprocess - imported by subprocess, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named 'org.python' - imported by pickle, C:\Users\Duffy\PycharmProjects\tbot\bot.py, xml.sax
+missing module named readline - imported by cmd, code, pdb, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+excluded module named _frozen_importlib - imported by importlib, importlib.abc, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named _winreg - imported by platform, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named _scproxy - imported by urllib.request
+missing module named java - imported by platform, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named 'java.lang' - imported by platform, C:\Users\Duffy\PycharmProjects\tbot\bot.py, xml.sax._exceptions
+missing module named vms_lib - imported by platform, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named termios - imported by tty, C:\Users\Duffy\PycharmProjects\tbot\bot.py, getpass
+missing module named grp - imported by shutil, tarfile, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, C:\Users\Duffy\PycharmProjects\tbot\bot.py, netrc, getpass
+missing module named _dummy_threading - imported by dummy_threading, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named org - imported by copy, C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named 'selenium.common' - imported by C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named 'selenium.webdriver' - imported by C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named selenium - imported by C:\Users\Duffy\PycharmProjects\tbot\bot.py
+missing module named iconv_codec - imported by bs4.dammit
+missing module named chardet - imported by bs4.dammit
+missing module named cchardet - imported by bs4.dammit
+missing module named lxml - imported by bs4.builder._lxml
+missing module named 'html5lib.treebuilders' - imported by bs4.builder._html5lib
+missing module named 'html5lib.constants' - imported by bs4.builder._html5lib
+missing module named html5lib - imported by bs4.builder._html5lib
+missing module named requests - imported by C:\Users\Duffy\PycharmProjects\tbot\bot.py
