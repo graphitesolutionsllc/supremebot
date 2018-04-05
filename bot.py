@@ -44,13 +44,14 @@ def clearCart():
     Clear the cart from the console
     :return: A clear cart
     """
-    global cart_list
-
+    global cart_list, currentItems, currentPrice
+    currentItems = 0
+    currentPrice = 0
     driver.get(root_url+"/shop/cart")
-    byes = driver.find_elements_by_class_name('intform')
+    byes = driver.find_elements_by_class_name("intform")
 
     for bye in byes:
-        bye.click()
+        bye.submit()
         print(bye.text)
 
 
@@ -93,7 +94,7 @@ def decode(message):
     message = str(message).replace('l', 'F')
     message = str(message).replace('S', 'h')
     message = str(message).replace('h', 'S')
-    print(message)
+    print("\tEncrypted: {"+message+"}")
     return message
 
 def check_size(url, size):
@@ -190,7 +191,7 @@ def add_item(url, size=None):
             return 0
     try:
         driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-        print("Added " + url + " to the cart\n--------------------------------------------------------\n")
+        print("Added " + url + " to the cart\n--------------------------------------------------------")
         global currentPrice, currentItems, cart_list
         cart_list.append(url)
         prices = driver.find_elements_by_class_name("price")
@@ -234,11 +235,7 @@ def checkout():
         Select(driver.find_element_by_id('credit_card_month')).select_by_visible_text(buyerCardExpMonth)
         Select(driver.find_element_by_id('credit_card_year')).select_by_visible_text(buyerCardExpYear)
         ord_terms = driver.find_element_by_id('order_terms')
-        print(ord_terms.text)
-        try:
-            ord_terms.click()
-        except WebDriverException:
-            print("ERROR: Could not click the term button!!")
+        ord_terms.send_keys(" ")
         driver.find_element_by_tag_name("form").submit()
     except NoSuchElementException:
         print("Error: Could not Checkout!")
@@ -318,7 +315,7 @@ def view_all(inStock=False):
     :return:
     """
     global maxItems
-    in_stock = 0
+    in_cart = 0
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
     #print(soup.prettify())
@@ -335,17 +332,14 @@ def view_all(inStock=False):
             print("Color: "+get_color(url))
             if check_unique(url):
                 add_item(url)
+                in_cart += 1
             if(url in url_list):
                 print("Already viewed URL")
             else:
                 update_url(url)
-            in_stock+=1
-            if(maxItems!=None and in_stock==maxItems):
+            if(maxItems!=None and in_cart==maxItems):
                 checkout()
                 return
-    print(str(in_stock) + " items in stock")
-    #for i in url_list:
-    #    print(i)
     checkout()
 
 def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV, country='USA'):
