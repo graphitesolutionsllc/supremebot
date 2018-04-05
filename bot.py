@@ -30,11 +30,12 @@ buyerCardExpMonth='03'
 buyerCardExpYear='2021'
 buyerCardCVV = '017'
 
-buyerMaxPrice = 500
-currentPrice = 0
+buyerMaxPrice = 5000
+#This is due to the shipping and handeling on the order
+currentPrice = 10
 
 currentItems = 0
-maxItems = 1
+maxItems = 7
 cart_list = []
 
 url_list = []
@@ -58,7 +59,7 @@ def clearMemory():
     global url_list, cart_list, currentItems, currentPrice
     url_list = []
     cart_list = []
-    currentPrice = 0
+    currentPrice = 10
     currentItems = 0
 
 def clearCart():
@@ -117,6 +118,18 @@ def decode(message):
     print("\tEncrypted: {"+message+"}")
     return message
 
+def check_stock(url):
+    """
+    Returns a boolean if it is in stock
+    :param url: URL of item
+    :return: True or False
+    """
+    driver.get("http://www.supremenewyork.com" + url)
+    try:
+        driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input')
+        return True
+    except NoSuchElementException:
+        return False
 def check_size(url, size):
     """
     Takes the URL and will return if it contains the specific size
@@ -200,6 +213,7 @@ def get_description(url):
 def add_item(url, size=None):
     """
     Adds an item to the cart using a url and a size or style if available
+    You can buy up to 10 items at a time
     :param url: URL of the clothing to buy
     :param size: Size of the clothing to buy (if any)
     :return: An item in the shopping cart
@@ -211,23 +225,22 @@ def add_item(url, size=None):
         except NoSuchElementException:
             print("\t\t"+url+": DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-    try:
-        global currentPrice, currentItems, cart_list, buyerMaxPrice
-        cart_list.append(url)
-        prices = driver.find_elements_by_class_name("price")
-        price = int(prices[0].text[1:4])
-        if((currentPrice+price)<buyerMaxPrice):
-            driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-            print("Added " + url + " to the cart\n--------------------------------------------------------\n\t($"
+    wait = WebDriverWait(driver, 3)
+    something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
+    driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
+    time.sleep(.03)
+    global currentPrice, currentItems, cart_list, buyerMaxPrice
+    cart_list.append(url)
+    prices = driver.find_elements_by_class_name("price")
+    price = int(prices[0].text[1:4])
+
+    print("Added http://www.supremenewyork.com/" + url +
+                  " to the cart\n--------------------------------------------------------\n\t($"
                   +str(currentPrice)+"+$"+str(price)+") < $"+str(buyerMaxPrice) + "\n")
-            currentPrice += price
-            currentItems+=1
-        else:
-            print("\tERROR: TOO EXPENSIVE FOR MAXIUMUM PRICE!\n\t-----------------------------------------------------"
-                  "\n\t\t($"+str(currentPrice)+"+$"+str(price)+") > $"+str(buyerMaxPrice) + "\n")
-            return 0
-    except NoSuchElementException:
-        print("Error: This is sold out!/Already in your cart!")
+    currentPrice += price
+    currentItems+=1
+    return 0
+
 
 def checkout():
     """
@@ -271,6 +284,20 @@ def checkout():
     print("CHECKOUT:\n\t("+str(currentItems)+"/"+str(maxItems) +") ITEMS: " + "$"+str(currentPrice)+"/"+str(buyerMaxPrice)
           +"\n--------------------------------------------------------")
 
+def return_root(urls):
+    """
+    Returns the root of the url that is unique
+    :param url: URL to manipulate
+    :return: simplified url
+    """
+
+    a = str(urls).split("/")
+    a = a[2:4]
+    a = ''.join(a)
+    #print(a)
+    return a
+
+
 def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_messages=False):
     """
     Target a certain type of item, by manipulating the all_url and adding the item
@@ -292,21 +319,23 @@ def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_m
     items = soup.find_all("div", class_='inner-article')
     itemCount=0
     keywordCount=0
+    hits = []
     for item in items:
         s = str(item).split('"')
         key = str(item).split(">")
         item_keys = key[6][:-3].split(" ")
         item_color = key[10][:-3]
+        url = s[3]
         if("sold_out_tag" in s):
             sold_keys = key[8][:-3].split(" ")
             for key in sold_keys:
                 for our in keyWords:
-                    if (key.upper() == our.upper()):
+                    if ((key.upper() == our.upper()) and (return_root(url) not in hits)):
                         keywordCount+=1
-                        print("Successful keywork match: " + our + " is SOLD OUT!")
+                        print("Successful keywork match: " + our + " is SOLD OUT!\n\t http://www.supremenewyork.com"+url)
+                        hits.append(return_root(url))
         else:
             #print(item)
-            url = s[3]
             if(url in url_list):
                 #print("Already viewed URL")
                 pass
@@ -332,7 +361,7 @@ def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_m
     else:
         print("\nYour Keywords DID NOT MATCH")
         if(keywordCount>0):
-            print("\t"+str(keywordCount)+" sold out items that returned True")
+            print("\t"+str(keywordCount)+" SOLD OUT items that returned True")
 
 
 def view_all(inStock=False):
@@ -357,7 +386,7 @@ def view_all(inStock=False):
             i = s[3].split('/')
             url = s[3]
             #print("Color: "+get_color(url))
-            if check_unique(url):
+            if check_unique(url) and check_stock(url):
                 add_item(url)
             if(url in url_list):
             #    print("Already viewed URL")
@@ -432,8 +461,8 @@ def bot_behavior(time_delay, on=False):
             while (key != "end"):
                 key = input("Enter a keyword to search for: ")
                 if(key!="end"):
-                    key2 = decode(key.capitalize())
-                    keys.append(key2)
+                    #key2 = decode(key.capitalize())
+                    keys.append(key)
             live = input("Do you want this to be live[y/N]: ")
             start_time = time.time()
             if(live=='y'):
