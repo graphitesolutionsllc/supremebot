@@ -39,6 +39,28 @@ cart_list = []
 
 url_list = []
 
+def showInfo():
+    """
+    Displays the settings the bot is runing
+    :return:
+    """
+    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list
+
+    print("Items: "+str(currentItems)+"/"+str(maxItems)+"\nPrice: $"+str(currentPrice)+"/"+str(buyerMaxPrice)+"\nURLS(in cart): ")
+    for url in url_list:
+        print("\t http://www.supremenewyork.com" + url)
+
+def clearMemory():
+    """
+    Clears the bots memory of URLS
+    :return:
+    """
+    global url_list, cart_list, currentItems, currentPrice
+    url_list = []
+    cart_list = []
+    currentPrice = 0
+    currentItems = 0
+
 def clearCart():
     """
     Clear the cart from the console
@@ -59,8 +81,6 @@ def decode(message):
     alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
                 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    if(message=="Shoulder"):
-        return"hSD9fYT0"
     message = str(message).replace('a', 'b')
     message = str(message).replace('B', '8')
     message = str(message).replace('c', '1')
@@ -139,6 +159,8 @@ def check_unique(url):
     :return: True or False if we have seen it while alive
     """
     global url_list
+    if (len(url_list) == 0):
+        return True
     bang = str(url).split("/")
     bang.remove("shop")
     bang = bang[2:4]
@@ -150,7 +172,7 @@ def check_unique(url):
         for b in bang:
             for s in spl:
                 if(b==s):
-                    print("Already viewed this item/style")
+                    #print("Already viewed this item/style")
                     return False
     return True
 
@@ -190,14 +212,20 @@ def add_item(url, size=None):
             print("\t\t"+url+": DID NOT HAVE A " + size + " IN STOCK!")
             return 0
     try:
-        driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-        print("Added " + url + " to the cart\n--------------------------------------------------------")
-        global currentPrice, currentItems, cart_list
+        global currentPrice, currentItems, cart_list, buyerMaxPrice
         cart_list.append(url)
         prices = driver.find_elements_by_class_name("price")
         price = int(prices[0].text[1:4])
-        currentPrice += price
-        currentItems+=1
+        if((currentPrice+price)<buyerMaxPrice):
+            driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
+            print("Added " + url + " to the cart\n--------------------------------------------------------\n\t($"
+                  +str(currentPrice)+"+$"+str(price)+") < $"+str(buyerMaxPrice) + "\n")
+            currentPrice += price
+            currentItems+=1
+        else:
+            print("\tERROR: TOO EXPENSIVE FOR MAXIUMUM PRICE!\n\t-----------------------------------------------------"
+                  "\n\t\t($"+str(currentPrice)+"+$"+str(price)+") > $"+str(buyerMaxPrice) + "\n")
+            return 0
     except NoSuchElementException:
         print("Error: This is sold out!/Already in your cart!")
 
@@ -207,7 +235,7 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
-    print("--------------------------------------------------------\nAttempting to checkout... ")
+    print("--------------------------------------------------------\nAttempting to checkout... \n...\n...")
     time.sleep(.3)
     try:
         driver.get(checkout_url)
@@ -240,7 +268,7 @@ def checkout():
     except NoSuchElementException:
         print("Error: Could not Checkout!")
     global currentPrice, currentItems
-    print("ATTEMPTED TO CHECKOUT "+str(currentItems)+"/"+str(maxItems) +" ITEMS: " + "$"+str(currentPrice)+"/"+str(buyerMaxPrice)
+    print("CHECKOUT:\n\t("+str(currentItems)+"/"+str(maxItems) +") ITEMS: " + "$"+str(currentPrice)+"/"+str(buyerMaxPrice)
           +"\n--------------------------------------------------------")
 
 def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_messages=False):
@@ -280,8 +308,8 @@ def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_m
             #print(item)
             url = s[3]
             if(url in url_list):
-                print("Already viewed URL")
-
+                #print("Already viewed URL")
+                pass
             else:
                 if(print_messages):
                     print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color +
@@ -293,7 +321,7 @@ def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_m
                             add_item(url, size)
                             update_url(url)
                             itemCount+=1
-                if(itemCount==maxItems):
+                if(len(cart_list)==maxItems):
                     print("\nReached Maximum Item Limit!")
                     checkout()
                     return 0
@@ -315,7 +343,6 @@ def view_all(inStock=False):
     :return:
     """
     global maxItems
-    in_cart = 0
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
     #print(soup.prettify())
@@ -329,15 +356,15 @@ def view_all(inStock=False):
         else:
             i = s[3].split('/')
             url = s[3]
-            print("Color: "+get_color(url))
+            #print("Color: "+get_color(url))
             if check_unique(url):
                 add_item(url)
-                in_cart += 1
             if(url in url_list):
-                print("Already viewed URL")
+            #    print("Already viewed URL")
+                pass
             else:
                 update_url(url)
-            if(maxItems!=None and in_cart==maxItems):
+            if(maxItems!=None and len(cart_list)==maxItems):
                 checkout()
                 return
     checkout()
@@ -426,6 +453,8 @@ def bot_behavior(time_delay, on=False):
             maxItems=int(input("Enter the maximum amount of items: "))
         elif(cmd=="maxprice"):
             buyerMaxPrice = int(input("Enter the maximum amount to spend: "))
+        elif(cmd=="showinfo"):
+            showInfo()
         elif(cmd=="update"):
             name = input("Enter your card name: ")
             phone = input("Enter a valid 10 digit phone number: ")
@@ -443,6 +472,8 @@ def bot_behavior(time_delay, on=False):
         #    view_all(True)
         elif(cmd=="clearcart"):
             clearCart()
+        elif(cmd=="clearmemory"):
+            clearMemory()
         elif(cmd=="help"):
             print("--------------------------------------------------------\nitem: Search for a specific item with "
                   "specific conditions\nviewall: Find any new items regardless "
