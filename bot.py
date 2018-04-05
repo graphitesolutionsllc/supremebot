@@ -2,37 +2,99 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from string import ascii_uppercase
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
-root_url = 'http://www.supremenewyork.com/shop'
+root_url = 'http://www.supremenewyork.com'
 all_url = 'http://www.supremenewyork.com/shop/all'
 root_types = []
 checkout_url = "https://www.supremenewyork.com/checkout"
 
 driver = webdriver.Chrome('C:/chromedriver.exe')
 
-buyerName='Supreme Buyer'
+buyerName='Mahdi Haji'
 buyerMail='dmd9042@gmail.com'
-buyerTele='1337879009'
-buyerAdress='Area 31'
-buyerCity='Nirvana'
-buyerZIP='66666'
+buyerTele='6072542'
+buyerAdress='236 Champlain Street'
+buyerCity='Rochester'
+buyerZIP='14608'
 buyerState = 'NY'
 buyerCountry='USA'
-buyerCardType='Mastercard'
-buyerCardNumber='4117733984087777'
-buyerCardExpMonth='07'
-buyerCardExpYear='2020'
-buyerCardCVV = '450'
+buyerCardType='Visa'
+buyerCardNumber='4060645434329715'
+buyerCardExpMonth='03'
+buyerCardExpYear='2021'
+buyerCardCVV = '017'
 
-buyerMaxPrice = 0
+buyerMaxPrice = 500
 currentPrice = 0
+
 currentItems = 0
+maxItems = 1
+cart_list = []
 
 url_list = []
+
+def clearCart():
+    """
+    Clear the cart from the console
+    :return: A clear cart
+    """
+    global cart_list
+
+    driver.get(root_url+"/shop/cart")
+    byes = driver.find_elements_by_class_name('intform')
+
+    for bye in byes:
+        bye.click()
+        print(bye.text)
+
+
+def decode(message):
+    alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    if(message=="Shoulder"):
+        return"hSD9fYT0"
+    message = str(message).replace('a', 'b')
+    message = str(message).replace('B', '8')
+    message = str(message).replace('c', '1')
+    message = str(message).replace('d', 'Y')
+    message = str(message).replace('D', 'o')
+    message = str(message).replace('e', 'T')
+
+    message = str(message).replace('G', 'Q')
+    message = str(message).replace('g', 't')
+    message = str(message).replace('S', 'h')
+    message = str(message).replace('h', 'S')
+    message = str(message).replace('i', 'i')
+    message = str(message).replace('k', '5')
+    message = str(message).replace('m', 'M')
+    message = str(message).replace('M', 'm')
+    message= str(message).replace('N', 's')
+    message = str(message).replace('o', 'D')
+    message = str(message).replace('P', '2')
+    message = str(message).replace('p', 'f')
+    message = str(message).replace('r', '0')
+    message = str(message).replace('R', 'R')
+    message = str(message).replace('s', 'N')
+    message = str(message).replace('u', '9')
+    message = str(message).replace('v', 'j')
+    message = str(message).replace('y', 'y')
+    message = str(message).replace('h', 'S')
+    message = str(message).replace('g', 't')
+    message = str(message).replace('t', 'g')
+    message = str(message).replace('N', 's')
+    message = str(message).replace('F', 'l')
+    message = str(message).replace('l', 'F')
+    message = str(message).replace('S', 'h')
+    message = str(message).replace('h', 'S')
+    print(message)
+    return message
 
 def check_size(url, size):
     """
@@ -42,13 +104,21 @@ def check_size(url, size):
     :return: True or False
     """
     driver.get("http://www.supremenewyork.com" + url)
-    sizes = driver.find_element_by_id("s")
-    options = [x for x in sizes.find_elements_by_tag_name("option")]
-    for element in options:
-        if(size==element.text):
+    try:
+        sizes = driver.find_element_by_id("s")
+        options = [x for x in sizes.find_elements_by_tag_name("option")]
+        if (len(options) == 0):
             return True
-    print("ERROR: NOT AVAILABLE IN THAT SIZE")
+        for element in options:
+            if (size == element.text):
+                return True
+        print("ERROR: NOT AVAILABLE IN " + size + " SIZE")
+    except NoSuchElementException:
+        print("ERROR: No Sizes to display")
+
     return False
+
+
 
 def get_color(url):
     """
@@ -112,13 +182,7 @@ def add_item(url, size=None):
     :return: An item in the shopping cart
     """
     driver.get("http://www.supremenewyork.com" + url)
-    if (size == " " or size == ""):
-        size = None
     if(size!=None):
-        if(size=="XLarge"):
-            pass
-        else:
-            size = size.capitalize()
         try:
             Select(driver.find_element_by_id('s')).select_by_visible_text(size)
         except NoSuchElementException:
@@ -127,7 +191,8 @@ def add_item(url, size=None):
     try:
         driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
         print("Added " + url + " to the cart\n--------------------------------------------------------\n")
-        global currentPrice, currentItems
+        global currentPrice, currentItems, cart_list
+        cart_list.append(url)
         prices = driver.find_elements_by_class_name("price")
         price = int(prices[0].text[1:4])
         currentPrice += price
@@ -141,8 +206,8 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
-    print("Attempting to checkout... ")
-    #time.sleep(.2)
+    print("--------------------------------------------------------\nAttempting to checkout... ")
+    time.sleep(.3)
     try:
         driver.get(checkout_url)
         try:
@@ -178,10 +243,10 @@ def checkout():
     except NoSuchElementException:
         print("Error: Could not Checkout!")
     global currentPrice, currentItems
-    print("ATTEMPTED TO CHECKOUT "+str(currentItems) +" ITEMS: " + "$"+str(currentPrice)
+    print("ATTEMPTED TO CHECKOUT "+str(currentItems)+"/"+str(maxItems) +" ITEMS: " + "$"+str(currentPrice)+"/"+str(buyerMaxPrice)
           +"\n--------------------------------------------------------")
 
-def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=None):
+def item_target(item, size=None, keyWords=[], color=None, maxPrice=None, print_messages=False):
     """
     Target a certain type of item, by manipulating the all_url and adding the item
     word at the end you will arrive the the catagory to scrape, then it will check to see if the
@@ -195,51 +260,64 @@ def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=No
     :param maxPrice: Maximum price for the order
     :return:
     """
+    global maxItems
     new_url = all_url+"/"+item
     source = requests.get(new_url).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
     itemCount=0
+    keywordCount=0
     for item in items:
         s = str(item).split('"')
+        key = str(item).split(">")
+        item_keys = key[6][:-3].split(" ")
+        item_color = key[10][:-3]
         if("sold_out_tag" in s):
-            pass
+            sold_keys = key[8][:-3].split(" ")
+            for key in sold_keys:
+                for our in keyWords:
+                    if (key.upper() == our.upper()):
+                        keywordCount+=1
+                        print("Successful keywork match: " + our + " is SOLD OUT!")
         else:
             #print(item)
             url = s[3]
             if(url in url_list):
                 print("Already viewed URL")
+
             else:
-                key = str(item).split(">")
-                item_keys = key[6][:-3].split(" ")
-                item_color = key[10][:-3]
-                print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color +
+                if(print_messages):
+                    print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color +
                       "\n\tURL: http://www.supremenewyork.com/"+url + "\n\tDescription: "+get_description(url))
                 for key in item_keys:
                     for our in keyWords:
-                        if(key.upper()==our.upper() and check_size(url, size) and check_unique(url) and (maxItems>itemCount)):
+                        if(key.upper()==our.upper() and (size==None or check_size(url, size)) and check_unique(url) and (maxItems>itemCount)):
+                            print("\nKEYWORK MATCH: "+ key + ":"+our)
                             add_item(url, size)
                             update_url(url)
                             itemCount+=1
                 if(itemCount==maxItems):
-                    print("Reached Maximum Item Limit!")
+                    print("\nReached Maximum Item Limit!")
                     checkout()
                     return 0
 
     if(itemCount>0):
-        print("You never reached your maximum item limit")
+        print("\nYou never reached your maximum item limit")
         checkout()
+    else:
+        print("\nYour Keywords DID NOT MATCH")
+        if(keywordCount>0):
+            print("\t"+str(keywordCount)+" sold out items that returned True")
 
 
-
-
-def view_all(inStock=False, maxItems=None):
+def view_all(inStock=False):
     """
     View all of the instock items and add them to the cart
     :param inStock: Boolean flag (Will print different text)
     :param maxItems: Maximum amount of items to buy
     :return:
     """
+    global maxItems
     in_stock = 0
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
@@ -310,31 +388,33 @@ def bot_behavior(time_delay, on=False):
     print("\t\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
           "\t\t\tType help for a list of commands\n--------------------------------------------------------")
     cmd=""
-    """
-    buyerMaxPrice = int(input("Please enter the maximum you would like to spend: "))
-    global buyerName
-    buyerName = input("Enter your card name: ")
-    global buyerCardCVV
-    buyerCardCVV = '666'
-    """
+    global maxItems, buyerMaxPrice
     start_time=time.time()
     while(cmd!="quit"):
-        print("--- %s seconds ---" % (time.time() - start_time))
+        print("\t\t------- %s seconds -------" % (time.time() - start_time))
         cmd=input("> ")
         if(cmd=="item"):
             item = input("Input your preferred item[Jackets/Shirts/Hoodies]: ")
             size = input("Input your preferred size[Small/Medium/Large/XLarge]: ")
+
+            if(size == "xlarge" or size == "Xlarge"):
+                size = "XLarge"
+            else:
+                if (size == " " or size == ""):
+                    size = None
+                else:
+                    size = size.capitalize()
             color = input("Input your preferred color[Gold/Silver/Red/Blue]: ")
             keys = []
-            key = ""
+            key = "e"
             print("\tINPUT 'end' TO EXIT")
-            while (key != "End"):
+            while (key != "end"):
                 key = input("Enter a keyword to search for: ")
-                key = key.capitalize()
-                keys.append(key)
+                if(key!="end"):
+                    key2 = decode(key.capitalize())
+                    keys.append(key2)
             live = input("Do you want this to be live[y/N]: ")
             start_time = time.time()
-            print("\n")
             if(live=='y'):
                 on=True
             else:
@@ -348,6 +428,10 @@ def bot_behavior(time_delay, on=False):
         elif(cmd=="viewall"):
             start_time = time.time()
             view_all()
+        elif(cmd=="maxitems"):
+            maxItems=int(input("Enter the maximum amount of items: "))
+        elif(cmd=="maxprice"):
+            buyerMaxPrice = int(input("Enter the maximum amount to spend: "))
         elif(cmd=="update"):
             name = input("Enter your card name: ")
             phone = input("Enter a valid 10 digit phone number: ")
@@ -363,13 +447,16 @@ def bot_behavior(time_delay, on=False):
             update_info(name,phone,address,city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV)
         #elif(cmd=="viewallstock"):
         #    view_all(True)
+        elif(cmd=="clearcart"):
+            clearCart()
         elif(cmd=="help"):
-            print("--------------------------------------------------------\nitem: This will start you searching "
-                  "for a specific item\n\t\t\t\twith specific conditions\nviewall: This will find any new items regardless "
-                  "of keywords\nupdate: This will allow you to update the information the console is running with\n"
-                  "--------------------------------------------------------")
+            print("--------------------------------------------------------\nitem: Search for a specific item with "
+                  "specific conditions\nviewall: Find any new items regardless "
+                  "of keywords\nupdate: Allow you to update the console information\n"
+                  "maxitems: Update the maximum items the bot can buy\nmaxprice: Update the maximum price the box can "
+                  "buy\n--------------------------------------------------------")
         else:
             print(cmd+" is not a recognized command!")
 
 """Main Logic Call"""
-bot_behavior(.5, True)
+bot_behavior(.5, False)
