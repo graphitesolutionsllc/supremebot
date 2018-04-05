@@ -33,8 +33,48 @@ currentPrice = 0
 
 url_list = []
 
-def update_url(url):
+
+def get_color(url):
+    """
+    Takes the URL and gives the color back
+    :param url:
+    :return:
+    """
+    driver.get("http://www.supremenewyork.com" + url)
+    color_raw = driver.find_element_by_xpath("//*[@class='style protect']")
+    color = color_raw.text
+    return color
+
+def check_unique(url):
+    """
+    Acts as a way to tell if we have seen this type of style before in another color
+    :param url: URL of the item to check
+    :return: True or False if we have seen it while alive
+    """
     global url_list
+    bang = str(url).split("/")
+    bang.remove("shop")
+    bang = bang[2:4]
+    for url in url_list:
+        spl = str(url).split("/")
+        spl.remove("shop")
+        spl = spl[2:4]
+        #print(" ".join(bang)+"\n"+" ".join(spl))
+        for b in bang:
+            for s in spl:
+                if(b==s):
+                    print("Already viewed this style")
+                    return False
+    return True
+
+def update_url(url):
+    """
+    Updates the global url_list array
+    :param url: Url to update the array
+    :return: Updated global url_list array
+    """
+    global url_list
+    check_unique(url)
     url_list.append(url)
 
 def add_item(url, size=None):
@@ -44,7 +84,7 @@ def add_item(url, size=None):
     :param size: Size of the clothing to buy (if any)
     :return: An item in the shopping cart
     """
-    driver.get(url)
+    driver.get("http://www.supremenewyork.com" + url)
     if (size == " " or size == ""):
         size = None
     if(size!=None):
@@ -65,15 +105,18 @@ def add_item(url, size=None):
 
 def checkout():
     """
-    This will take the session to checkout and autofill it with the information found in the header of the file
+    Take the session to checkout and autofill it with the information found in the header of the file
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
-    time.sleep(.2)
+    #time.sleep(.2)
     try:
         driver.get(checkout_url)
-        ord_billing_name = driver.find_element_by_id('order_billing_name')
-        ord_billing_name.send_keys(buyerName)
+        try:
+            ord_billing_name = driver.find_element_by_id('order_billing_name')
+            ord_billing_name.send_keys(buyerName)
+        except WebDriverException:
+            print("ERROR: Could not find the Billing Name")
         ord_email = driver.find_element_by_id('order_email')
         ord_email.send_keys(buyerMail)
         ord_tele = driver.find_element_by_id('order_tel')
@@ -106,7 +149,7 @@ def checkout():
 
 def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=None):
     """
-    This will target a certain type of item, by manipulating the all_url and adding the item
+    Target a certain type of item, by manipulating the all_url and adding the item
     word at the end you will arrive the the catagory to scrape, then it will check to see if the
     item matches any keywords, if so it adds it to the cart. When the max items or price is reached
     then the function does a checkout
@@ -129,7 +172,7 @@ def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=No
             pass
         else:
             #print(item)
-            url = "http://www.supremenewyork.com" + s[3]
+            url = s[3]
             if(url in url_list):
                 print("Already viewed URL")
             else:
@@ -140,7 +183,7 @@ def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=No
                 print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color)
                 for key in item_keys:
                     for our in keyWords:
-                        if(key.upper()==our.upper()):
+                        if(key.upper()==our.upper() and check_unique(url)):
                             add_item(url, size)
                             itemCount+=1
                             if(maxItems==itemCount):
@@ -151,7 +194,7 @@ def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=No
 
 def view_all(inStock=False, maxItems=None):
     """
-    This will view all of the instock items and add them to the cart
+    View all of the instock items and add them to the cart
     :param inStock: Boolean flag (Will print different text)
     :param maxItems: Maximum amount of items to buy
     :return:
@@ -169,12 +212,14 @@ def view_all(inStock=False, maxItems=None):
             pass
         else:
             i = s[3].split('/')
-            url = "http://www.supremenewyork.com" + s[3]
+            url = s[3]
+            print("Color: "+get_color(url))
+            if check_unique(url):
+                add_item(url)
             if(url in url_list):
                 print("Already viewed URL")
             else:
                 update_url(url)
-            add_item(url)
             in_stock+=1
             if(maxItems!=None and in_stock==maxItems):
                 checkout()
@@ -185,6 +230,21 @@ def view_all(inStock=False, maxItems=None):
     checkout()
 
 def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV, country='USA'):
+    """
+    Allows the user of the shell to update all of the information for checkout
+    :param name: Name on card
+    :param phone: Phone for order
+    :param address: Billing and Shipping address
+    :param city: Billing City
+    :param state: Billing State
+    :param zip: Billing Zip
+    :param cardNumber: Billing Card Number
+    :param cardExpMonth: Billing Card Expiration Month
+    :param cardExpYear: Billing Card Expiration Year
+    :param cardCVV: Billing Card CVV
+    :param country: Billing Country (USA default)
+    :return: Updated checkout feilds
+    """
     global buyerName, buyerAdress, buyerCity, buyerCountry, buyerMail, buyerState, buyerCardCVV, buyerCardExpMonth
     global buyerCardExpYear, buyerCardNumber, buyerZIP,  buyerTele
     buyerName=name
@@ -232,7 +292,7 @@ def bot_behavior(time_delay, on=False):
             if(on):
                 while(True):
                     item_target(item, size, keys, color, maxPrice=buyerMaxPrice)
-                    time.sleep(.5)
+                    time.sleep(time_delay)
             else:
                 item_target(item, size, keys, color, maxPrice=buyerMaxPrice)
         elif(cmd=="viewall"):
@@ -260,4 +320,5 @@ def bot_behavior(time_delay, on=False):
         else:
             print(cmd+" is not a recognized command!")
 
-bot_behavior(200, True)
+"""Main Logic Call"""
+bot_behavior(.5, True)
