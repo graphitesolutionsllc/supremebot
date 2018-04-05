@@ -2,11 +2,13 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.select import Select
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
+from string import ascii_uppercase
 
 root_url = 'http://www.supremenewyork.com/shop'
-all_url = 'http://www.supremenewyork.com/shop/all/jackets'
+all_url = 'http://www.supremenewyork.com/shop/all'
 root_types = []
 checkout_url = "https://www.supremenewyork.com/checkout"
 
@@ -14,29 +16,52 @@ driver = webdriver.Chrome('C:/chromedriver.exe')
 
 buyerName='Supreme Buyer'
 buyerMail='dmd9042@gmail.com'
-buyerTele='133'
+buyerTele='1337879009'
 buyerAdress='Area 31'
 buyerCity='Nirvana'
 buyerZIP='66666'
+buyerState = 'NY'
 buyerCountry='USA'
 buyerCardType='Mastercard'
-buyerCardNumber='4117733984087674'
+buyerCardNumber='4117733984087777'
 buyerCardExpMonth='07'
-buyerCardExpYear='2021'
-buyerCardCVV = '454'
-buyerMaxPrice = 0
+buyerCardExpYear='2020'
+buyerCardCVV = '450'
 
-def add_item(url, size=None, style=None):
+buyerMaxPrice = 0
+currentPrice = 0
+
+url_list = []
+
+def update_url(url):
+    global url_list
+    url_list.append(url)
+
+def add_item(url, size=None):
+    """
+    Adds an item to the cart using a url and a size or style if available
+    :param url: URL of the clothing to buy
+    :param size: Size of the clothing to buy (if any)
+    :return: An item in the shopping cart
+    """
     driver.get(url)
+    if (size == " " or size == ""):
+        size = None
     if(size!=None):
+        size = size.capitalize()
         try:
             Select(driver.find_element_by_id('s')).select_by_visible_text(size)
         except NoSuchElementException:
-            print("          "+url+": DID NOT HAVE A " + size + " IN STOCK!")
+            print("\t\t"+url+": DID NOT HAVE A " + size + " IN STOCK!")
     try:
         driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
+        print("Added " + url + " to the cart")
+        global currentPrice
+        prices = driver.find_elements_by_class_name("price")
+        price = int(prices[0].text[1:4])
+        currentPrice += price
     except NoSuchElementException:
-        print("Error: This is sold out!")
+        print("Error: This is sold out!/Already in your cart!")
 
 def checkout():
     """
@@ -57,6 +82,7 @@ def checkout():
         ord_adress.send_keys(buyerAdress)
         ord_billing_city = driver.find_element_by_id('order_billing_city')
         ord_billing_city.send_keys(buyerCity)
+        Select(driver.find_element_by_id('order_billing_state')).select_by_visible_text(buyerState)
         ord_zip = driver.find_element_by_id('order_billing_zip')
         ord_zip.send_keys(buyerZIP)
         Select(driver.find_element_by_id('order_billing_country')).select_by_visible_text(buyerCountry)
@@ -66,213 +92,172 @@ def checkout():
         ord_cvv.send_keys(buyerCardCVV)
         Select(driver.find_element_by_id('credit_card_month')).select_by_visible_text(buyerCardExpMonth)
         Select(driver.find_element_by_id('credit_card_year')).select_by_visible_text(buyerCardExpYear)
-        ord_terms = driver.find_element_by_id('order_terms')
-        ord_terms.click()
+        ord_terms = driver.find_element_by_id("order_terms")
+
+        try:
+            ord_terms.click()
+        except WebDriverException:
+            print("ERROR: Could not click the term button!!")
         driver.find_element_by_tag_name("form").submit()
     except NoSuchElementException:
         print("Error: Could not Checkout!")
+    global currentPrice
+    print("ATTEMPTED TO CHECKOUT: " + str(currentPrice))
 
-def view_all(inStock=False, item=None):
+def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=None):
+    """
+    This will target a certain type of item, by manipulating the all_url and adding the item
+    word at the end you will arrive the the catagory to scrape, then it will check to see if the
+    item matches any keywords, if so it adds it to the cart. When the max items or price is reached
+    then the function does a checkout
+    :param item: The string we will be modifying the URL with
+    :param size: Requested size of the item
+    :param keyWords: Array of keywords to search with
+    :param color: Requested color of the item
+    :param maxItems: Maximum amonunt of items
+    :param maxPrice: Maximum price for the order
+    :return:
+    """
+    new_url = all_url+"/"+item
+    source = requests.get(new_url).text
+    soup = BeautifulSoup(source, 'html.parser')
+    items = soup.find_all("div", class_='inner-article')
+    itemCount=0
+    for item in items:
+        s = str(item).split('"')
+        if("sold_out_tag" in s):
+            pass
+        else:
+            #print(item)
+            url = "http://www.supremenewyork.com" + s[3]
+            if(url in url_list):
+                print("Already viewed URL")
+            else:
+                update_url(url)
+                key = str(item).split(">")
+                item_keys = key[6][:-3].split(" ")
+                item_color = key[10][:-3]
+                print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color)
+                for key in item_keys:
+                    for our in keyWords:
+                        if(key.upper()==our.upper()):
+                            add_item(url, size)
+                            itemCount+=1
+                            if(maxItems==itemCount):
+                                checkout()
+                                return
+
+
+
+def view_all(inStock=False, maxItems=None):
+    """
+    This will view all of the instock items and add them to the cart
+    :param inStock: Boolean flag (Will print different text)
+    :param maxItems: Maximum amount of items to buy
+    :return:
+    """
     in_stock = 0
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
     #print(soup.prettify())
-    url_list = []
+    global url_list
     items = soup.find_all("div", class_='inner-article')
     for item in items:
-        print(item)
+        #print(item)
         s = str(item).split('"')
         if("sold_out_tag" in s):
             pass
         else:
             i = s[3].split('/')
-            if(item!= None and item==i):
-                pass
             url = "http://www.supremenewyork.com" + s[3]
-            url_list.append(url)
+            if(url in url_list):
+                print("Already viewed URL")
+            else:
+                update_url(url)
             add_item(url)
             in_stock+=1
+            if(maxItems!=None and in_stock==maxItems):
+                checkout()
+                return
     print(str(in_stock) + " items in stock")
-    for i in url_list:
-        print(i)
+    #for i in url_list:
+    #    print(i)
     checkout()
 
-def item_run(item, size=None, max_items=None):
-    item_list = []
-    item_list.append(item)
-    source = requests.get(root_url).text
-    soup = BeautifulSoup(source, 'html.parser')
-    item_num = 0
-    item_url = soup.find_all("li", class_=item)
-    for sh in item_url:
-        s = str(sh.a)
-        a=s.split('"')
-        item_list.append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-    in_stock=0
-    in_print=False
-    y=0
-    for x in item_list:
-        if (y == 0):
-            print(x + ":")
-        else:
-            source_temp = requests.get(x).text
-            soup_temp = BeautifulSoup(source_temp, 'html.parser')
-            avail = soup_temp.find_all("input", class_="button")
-            for a in avail:
-                s = str(a)
-                b = s.split('"')
-                if ('add to cart' in b):
-                    in_stock += 1
-                    in_print = True
-            if (in_print):
-                print("     " + x + " IN STOCK")
-                add_item(x, size)
-            else:
-                print("     " + x)
-            in_print = False
-        y = y + 1
-    print("\n")
-    if(in_stock>0):
-        checkout()
+def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV, country='USA'):
+    global buyerName, buyerAdress, buyerCity, buyerCountry, buyerMail, buyerState, buyerCardCVV, buyerCardExpMonth
+    global buyerCardExpYear, buyerCardNumber, buyerZIP,  buyerTele
+    buyerName=name
+    buyerTele=phone
+    buyerAdress=address
+    buyerCity=city
+    buyerState=state
+    buyerZIP=zip
+    buyerCountry=country
+    buyerCardNumber=cardNumber
+    buyerCardExpYear=cardExpYear
+    buyerCardExpMonth=cardExpMonth
+    buyerCardCVV=cardCVV
 
-def main_run(item, max_items):
+def bot_behavior(time_delay, on=False):
     """
-    This method gathers all of the items on the supreme website and checks which ones are in stock
-    :return: A populated c_types two dimentional array with the titles on the top
+    Main logic for the bot
+    :param time_delay: Time delay between checking for the items
+    :return:
     """
-    c_types = [['Skate'], ["T-shirts"], ['Shirts'], ['Sweatshirts'], ['Tops/Sweaters'], ['Jackets'], ['Accessories'],
-               ['Bags'], ['Hats'], ['Pants']]
-    source = requests.get(root_url).text
-    soup = BeautifulSoup(source, 'html.parser')
-    item_num = 0
-    skate_url = soup.find_all("li", class_="skate")
-    tshirt_url = soup.find_all("li", class_="t-shirts")
-    shirts_url = soup.find_all("li", class_="shirts")
-    sweatshirt_url = soup.find_all("li", class_="sweatshirts")
-    tops_url = soup.find_all("li", class_="tops/sweaters")
-    jackets_url = soup.find_all("li", class_="jackets")
-    accessories_url = soup.find_all("li", class_="accessories")
-    bags_url = soup.find_all("li", class_="bags")
-    hats_url = soup.find_all("li", class_="hats")
-    pants_url = soup.find_all("li", class_="pants")
-
-    for sh in skate_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[0].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in tshirt_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[1].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in shirts_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[2].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in sweatshirt_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[3].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in tops_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[4].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in jackets_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[5].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in accessories_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[6].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in bags_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[7].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in hats_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[8].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    for sh in pants_url:
-        s = str(sh.a)
-        a=s.split('"')
-        c_types[9].append("http://www.supremenewyork.com"+a[1])
-        item_num+=1
-
-    in_stock = 0
-    in_print=False
-    for type in c_types:
-        y=0
-        for x in type:
-            if(y==0):
-                print(x+":")
-            else:
-                source_temp = requests.get(x).text
-                soup_temp = BeautifulSoup(source_temp, 'html.parser')
-                avail = soup_temp.find_all("input", class_="button")
-                for a in avail:
-                    s = str(a)
-                    b = s.split('"')
-                    if ('add to cart' in b):
-                        in_stock+=1
-                        in_print=True
-                if(in_print):
-                    if(type[0]==item):
-                        add_item(x, 'Large')
-                        checkout()
-                    print("     " + x + " IN STOCK")
-                else:
-                    print("     " + x)
-                in_print=False
-            y=y+1
-        print("\n")
-    checkout()
-    print("Total number of items online currently: " + str(item_num) + "\nCurrent items in stock: " + str(in_stock))
-
-def bot_behavior(time_delay):
-    print("Welcome to Supreme Bot 2018\n---------------------------\n"
-          "Type help for a list of commands")
+    print("\t\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
+          "\t\t\tType help for a list of commands\n--------------------------------------------------------")
     cmd=""
+    """
     buyerMaxPrice = int(input("Please enter the maximum you would like to spend: "))
     global buyerName
     buyerName = input("Enter your card name: ")
     global buyerCardCVV
     buyerCardCVV = '666'
+    """
     while(cmd!="quit"):
-        cmd=input(">")
+        cmd=input("> ")
         if(cmd=="item"):
             item = input("Input your preferred item: ")
-            size = input("Input your preferred size(if applicable): ")
-            item_run(item, size,5)
-        elif(cmd=="mainrun"):
-            main_run()
+            size = input("Input your preferred size: ")
+            color = input("Input your preferred color: ")
+            keys = []
+            key = ""
+            print("\tINPUT 'end' TO EXIT")
+            while (key != "End"):
+                key = input("Enter a keyword to search for: ")
+                key = key.capitalize()
+                keys.append(key)
+            print("\n")
+            if(on):
+                while(True):
+                    item_target(item, size, keys, color, maxPrice=buyerMaxPrice)
+                    time.sleep(.5)
+            else:
+                item_target(item, size, keys, color, maxPrice=buyerMaxPrice)
         elif(cmd=="viewall"):
             view_all()
-        elif(cmd=="viewallstock"):
-            view_all(True)
+        elif(cmd=="update"):
+            name = input("Enter your card name: ")
+            phone = input("Enter a valid 10 digit phone number: ")
+            address = input("Enter your street address: ")
+            zip = input("Enter your zip code: ")
+            city = str(input("Enter your city: "))
+            state = str(input("Enter your state (Caps two characters): "))
+            cardNumber = input("Enter a valid card number: ")
+            cardExpMonth = input("Enter the month the card expires (01/02/...): ")
+            cardExpYear = input("Enter the year the card expires (2020/2021/...): ")
+            cardCVV = input("Enter the CVV for the card: ")
+            update_info(name,phone,address,city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV)
+            print("You have sucessfully updated your information\n")
+        #elif(cmd=="viewallstock"):
+        #    view_all(True)
         elif(cmd=="help"):
-            print("item: This will start you searching for a specific item in a specific size\n"
-                  "mainrun: This will run the main run from the root url\n"
-                  "viewall: ")
+            print("--------------------------------------------------------\nitem: This will start you searching "
+                  "for a specific item\n\t\t\t\twith specific conditions\nviewall: This will find any new items regardless "
+                  "of keywords\nupdate: This will allow you to update the information the console is running with\n"
+                  "--------------------------------------------------------")
         else:
             print(cmd+" is not a recognized command!")
 
-bot_behavior(200)
+bot_behavior(200, True)
