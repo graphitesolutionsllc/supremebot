@@ -30,9 +30,25 @@ buyerCardCVV = '450'
 
 buyerMaxPrice = 0
 currentPrice = 0
+currentItems = 0
 
 url_list = []
 
+def check_size(url, size):
+    """
+    Takes the URL and will return if it contains the specific size
+    :param url: URL to check
+    :param size: Size to check for
+    :return: True or False
+    """
+    driver.get("http://www.supremenewyork.com" + url)
+    sizes = driver.find_element_by_id("s")
+    options = [x for x in sizes.find_elements_by_tag_name("option")]
+    for element in options:
+        if(size==element.text):
+            return True
+    print("ERROR: NOT AVAILABLE IN THAT SIZE")
+    return False
 
 def get_color(url):
     """
@@ -63,7 +79,7 @@ def check_unique(url):
         for b in bang:
             for s in spl:
                 if(b==s):
-                    print("Already viewed this style")
+                    print("Already viewed this item/style")
                     return False
     return True
 
@@ -77,6 +93,17 @@ def update_url(url):
     check_unique(url)
     url_list.append(url)
 
+def get_description(url):
+    """
+    Takes a URL and return the description of the product
+    :param url: URL to investigate
+    :return: String of the description
+    """
+    driver.get("http://www.supremenewyork.com" + url)
+    harvest = driver.find_elements_by_class_name("description")
+    desc = harvest[0].text
+    return desc
+
 def add_item(url, size=None):
     """
     Adds an item to the cart using a url and a size or style if available
@@ -88,18 +115,23 @@ def add_item(url, size=None):
     if (size == " " or size == ""):
         size = None
     if(size!=None):
-        size = size.capitalize()
+        if(size=="XLarge"):
+            pass
+        else:
+            size = size.capitalize()
         try:
             Select(driver.find_element_by_id('s')).select_by_visible_text(size)
         except NoSuchElementException:
             print("\t\t"+url+": DID NOT HAVE A " + size + " IN STOCK!")
+            return 0
     try:
         driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-        print("Added " + url + " to the cart")
-        global currentPrice
+        print("Added " + url + " to the cart\n--------------------------------------------------------\n")
+        global currentPrice, currentItems
         prices = driver.find_elements_by_class_name("price")
         price = int(prices[0].text[1:4])
         currentPrice += price
+        currentItems+=1
     except NoSuchElementException:
         print("Error: This is sold out!/Already in your cart!")
 
@@ -109,6 +141,7 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
+    print("Attempting to checkout... ")
     #time.sleep(.2)
     try:
         driver.get(checkout_url)
@@ -135,8 +168,8 @@ def checkout():
         ord_cvv.send_keys(buyerCardCVV)
         Select(driver.find_element_by_id('credit_card_month')).select_by_visible_text(buyerCardExpMonth)
         Select(driver.find_element_by_id('credit_card_year')).select_by_visible_text(buyerCardExpYear)
-        ord_terms = driver.find_element_by_id("order_terms")
-
+        ord_terms = driver.find_element_by_id('order_terms')
+        print(ord_terms.text)
         try:
             ord_terms.click()
         except WebDriverException:
@@ -144,8 +177,9 @@ def checkout():
         driver.find_element_by_tag_name("form").submit()
     except NoSuchElementException:
         print("Error: Could not Checkout!")
-    global currentPrice
-    print("ATTEMPTED TO CHECKOUT: " + str(currentPrice))
+    global currentPrice, currentItems
+    print("ATTEMPTED TO CHECKOUT "+str(currentItems) +" ITEMS: " + "$"+str(currentPrice)
+          +"\n--------------------------------------------------------")
 
 def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=None):
     """
@@ -176,19 +210,26 @@ def item_target(item, size=None, keyWords=[], color=None,maxItems=1, maxPrice=No
             if(url in url_list):
                 print("Already viewed URL")
             else:
-                update_url(url)
                 key = str(item).split(">")
                 item_keys = key[6][:-3].split(" ")
                 item_color = key[10][:-3]
-                print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color)
+                print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color +
+                      "\n\tURL: http://www.supremenewyork.com/"+url + "\n\tDescription: "+get_description(url))
                 for key in item_keys:
                     for our in keyWords:
-                        if(key.upper()==our.upper() and check_unique(url)):
+                        if(key.upper()==our.upper() and check_size(url, size) and check_unique(url) and (maxItems>itemCount)):
                             add_item(url, size)
+                            update_url(url)
                             itemCount+=1
-                            if(maxItems==itemCount):
-                                checkout()
-                                return
+                if(itemCount==maxItems):
+                    print("Reached Maximum Item Limit!")
+                    checkout()
+                    return 0
+
+    if(itemCount>0):
+        print("You never reached your maximum item limit")
+        checkout()
+
 
 
 
@@ -258,6 +299,7 @@ def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth
     buyerCardExpYear=cardExpYear
     buyerCardExpMonth=cardExpMonth
     buyerCardCVV=cardCVV
+    print("You have sucessfully updated your information\n")
 
 def bot_behavior(time_delay, on=False):
     """
@@ -275,12 +317,14 @@ def bot_behavior(time_delay, on=False):
     global buyerCardCVV
     buyerCardCVV = '666'
     """
+    start_time=time.time()
     while(cmd!="quit"):
+        print("--- %s seconds ---" % (time.time() - start_time))
         cmd=input("> ")
         if(cmd=="item"):
-            item = input("Input your preferred item: ")
-            size = input("Input your preferred size: ")
-            color = input("Input your preferred color: ")
+            item = input("Input your preferred item[Jackets/Shirts/Hoodies]: ")
+            size = input("Input your preferred size[Small/Medium/Large/XLarge]: ")
+            color = input("Input your preferred color[Gold/Silver/Red/Blue]: ")
             keys = []
             key = ""
             print("\tINPUT 'end' TO EXIT")
@@ -288,7 +332,13 @@ def bot_behavior(time_delay, on=False):
                 key = input("Enter a keyword to search for: ")
                 key = key.capitalize()
                 keys.append(key)
+            live = input("Do you want this to be live[y/N]: ")
+            start_time = time.time()
             print("\n")
+            if(live=='y'):
+                on=True
+            else:
+                on=False
             if(on):
                 while(True):
                     item_target(item, size, keys, color, maxPrice=buyerMaxPrice)
@@ -296,6 +346,7 @@ def bot_behavior(time_delay, on=False):
             else:
                 item_target(item, size, keys, color, maxPrice=buyerMaxPrice)
         elif(cmd=="viewall"):
+            start_time = time.time()
             view_all()
         elif(cmd=="update"):
             name = input("Enter your card name: ")
@@ -308,8 +359,8 @@ def bot_behavior(time_delay, on=False):
             cardExpMonth = input("Enter the month the card expires (01/02/...): ")
             cardExpYear = input("Enter the year the card expires (2020/2021/...): ")
             cardCVV = input("Enter the CVV for the card: ")
+            start_time = time.time()
             update_info(name,phone,address,city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV)
-            print("You have sucessfully updated your information\n")
         #elif(cmd=="viewallstock"):
         #    view_all(True)
         elif(cmd=="help"):
