@@ -333,7 +333,7 @@ def checkout():
           + str(buyerMaxPrice)+"\n--------------------------------------------------------")
 
 
-def item_target(item, size=None, key_words=[], color=None):
+def item_target(item, size=None, key_words=None, color=None):
     """
     Target a certain type of item, by manipulating the all_url and adding the item
     word at the end you will arrive the the catagory to scrape, then it will check to see if the
@@ -370,7 +370,7 @@ def item_target(item, size=None, key_words=[], color=None):
                                   "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
                         hits.append(get_root(url))
         else:
-            print("HOWDY: " + item_color.upper() + ":" + color.upper())
+            #  print("HOWDY: " + item_color.upper() + ":" + color.upper()) Color print statement
             if str(item_color.upper()) == str(color.upper()):
                 if printMessages:
                     print("COLOR MATCH: ADDED TO CART")
@@ -570,7 +570,11 @@ def bot_behavior(time_delay, on=False):
         elif cmd == "quit":
             print("Closing Mozilla FireFox\n\tEnding processes...")
             time.sleep(1)
-            driver.quit()
+            try:
+                driver.quit()
+            except WebDriverException:
+                if printMessages:
+                    print("ERROR QUITING FIREFOX!")
         else:
             print(cmd + ": is not a recognized command!")
 
