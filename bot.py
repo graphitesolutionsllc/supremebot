@@ -8,48 +8,40 @@ from selenium.common.exceptions import NoSuchElementException, WebDriverExceptio
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-root_url = 'http://www.supremenewyork.com'
-all_url = 'http://www.supremenewyork.com/shop/all'
-root_types = []
-checkout_url = "https://www.supremenewyork.com/checkout"
+root_url = 'http://www.supremenewyork.com' # Helper to print URLs with only the partial
+all_url = 'http://www.supremenewyork.com/shop/all' # Main entrance point
+checkout_url = "https://www.supremenewyork.com/checkout" # Checkout URL
 
-driver = webdriver.Chrome('C:/chromedriver.exe')
+driver = webdriver.Chrome('C:/chromedriver.exe') # Chromedriver.exe is pointed to root of C:/
 
-alphabet1 = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-alphabet2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                'V', 'W', 'X', 'Y', 'Z']
-numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-
-customAlphabet = []
-key = ""
-
-buyerName='Mahdi Haji'
-buyerMail='dmd9042@gmail.com'
-buyerTele='6072542'
+buyerName='Bob Evans' # Dummy information to be replaced on startup
+buyerMail='fake_email@gmail.com'
+buyerTele='60725423300'
 buyerAdress='236 Champlain Street'
-buyerCity='Rochester'
-buyerZIP='14608'
-buyerState = 'NY'
+buyerCity='Wheelchair'
+buyerZIP='14610'
+buyerState = 'FL'
 buyerCountry='USA'
 buyerCardType='Visa'
 buyerCardNumber='4060645434329715'
 buyerCardExpMonth='03'
 buyerCardExpYear='2021'
-buyerCardCVV = '017'
+buyerCardCVV = '917'
 
-buyerMaxPrice = 1000
-#This starts at 10 due to the ship and handle fee
-currentPrice = 10
+buyerMaxPrice = 1000 # Default Max Price
+moneyMode = False # Will ignore maxPrice and listen to itemNumbers strictly (when False)
+currentPrice = 10 # This starts at 10 due to the ship and handle fee
 
-encryp = False
-decryp = False
-printMessages = False
+encryp = False # Scrambling user input to website
+decryp = False # De-Scrambling website input to user
+printMessages = False # Message print boolean flag
 
-currentItems = 0
-maxItems = 5
-cart_list = []
+currentItems = 0 # Current number of items in the cart
+maxItems = 5 # Maximum amount of items allowed to checkout
 
-url_list = []
+cart_list = [] # URLs that are in my cart
+url_list = [] # URLs that I have viewed in this session
+
 
 def create_alphabet(english, scrambled):
     """
@@ -80,13 +72,14 @@ def decrypt(message):
 def show_info():
     """
     Displays the settings the bot is running
-    :return:
+    :return: Prints the settings to the users console
     """
-    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, printMessages
+    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, printMessages, moneyMode
 
     print("Items: "+str(currentItems)+"/"+str(maxItems)+"\nPrice: $"+str(currentPrice)+"/$"+str(buyerMaxPrice)+
-          "\nEncrypt: "+str(encryp)+"\nDecrypt: "+str(decryp)
+          "\nEncrypt: "+str(encryp)+"\nDecrypt: "+str(decryp) + "\nMoney Priority: " + str(moneyMode)
           +"\nPrint Messages: "+str(printMessages)+"\nURLS(in cart): ")
+    if(len(url_list)==0): print("\t\t\t   {NONE}")
     for url in url_list:
         print("\t http://www.supremenewyork.com" + url)
 
@@ -100,6 +93,7 @@ def clear_memory():
     cart_list = list()
     currentPrice = 10
     currentItems = 0
+    if(printMessages): print("tMEMORY IS CLEAR: your billing and card info has not been changed")
 
 def empty_cart():
     """
@@ -116,6 +110,7 @@ def empty_cart():
     currentItems = 0
     currentPrice = 0
     clear_memory()
+    if (printMessages): print("CART IS EMPTY: There may still be an item to two, remove by hand")
 
 def check_stock(url):
     """
@@ -127,8 +122,10 @@ def check_stock(url):
     soup = BeautifulSoup(source, 'html.parser')
     sold_raw = str(soup.find_all("b", class_="button sold-out"))
     if(sold_raw!=None):
+        if(printMessages): print("IN STOCK!")
         return True
     else:
+        if (printMessages): print("OUT OF STOCK!")
         return False
 
 def check_size(url, size):
@@ -138,21 +135,25 @@ def check_size(url, size):
     :param size: (String) Size to check for
     :return: (Bool) True or False
     """
-    driver.get("http://www.supremenewyork.com" + url)
-    try:
-        sizes = driver.find_element_by_id("s")
-        options = [x for x in sizes.find_elements_by_tag_name("option")]
-        if (len(options) == 0):
-            return True
-        for element in options:
-            if (size == element.text):
-                return True
-        if(printMessages): print("\tERROR: {"+ get_title(url)+"("+get_color(url)+")"
-                                 +"}\n\t\t\t*NOT AVAILABLE IN " + size + " SIZE")
-    except NoSuchElementException:
-        print("ERROR: No Sizes to display")
+    if(size.upper()== "XLARGE" or size.upper() == "LARGE" or size.upper() == "MEDIUM" or size.upper() == "SMALL"):
+        try:
+            source = requests.get(root_url + url).text
+            soup = BeautifulSoup(source, 'html.parser')
+            options = soup.find_all("Select", class_='s')
+            if (len(options) == 0): return True
+            for element in options:
+                if (size == element.text):
+                    return True
+            if (printMessages): print("\tERROR: {" + get_title(url) + "(" + get_color(url) + ")"
+                                      + "}\n\t\t\t*NOT AVAILABLE IN {" + size + "} SIZE")
+        except NoSuchElementException:
+            print("ERROR: No Sizes to display")
 
-    return False
+        return False
+    else:
+        if(printMessages): print("\nERROR: {"+size+"} SIZE IS NOT CORRECT!")
+        return False
+
 
 def get_root(urls):
     """
@@ -307,7 +308,7 @@ def checkout():
     except NoSuchElementException:
         print("Error: Could not Checkout!")
     global currentPrice, currentItems
-    final = "%0.2f" % (float((currentPrice)*1.07495))
+    final = "%0.2f" % (float((currentPrice)*1.0754))
     print("CHECKOUT COMPLETE:\n\t("+str(currentItems)+"/"+str(maxItems) +") ITEMS: " + "$"+str(final)+"/$"+str(buyerMaxPrice)
           +"\n--------------------------------------------------------")
 
@@ -324,7 +325,7 @@ def item_target(item, size=None, keyWords=[], color=None):
     :param color: (String) Requested color of the item
     :return:
     """
-    global maxItems, buyerMaxPrice, printMessages
+    global maxItems, buyerMaxPrice, printMessages, currentItems
     new_url = all_url+"/"+item
     source = requests.get(new_url).text
     soup = BeautifulSoup(source, 'html.parser')
@@ -373,13 +374,11 @@ def item_target(item, size=None, keyWords=[], color=None):
                     return 0
 
     if(len(cart_list)>0):
-        print("\nYou never reached your maximum item limit")
+        print("\nChecked all URLS:\n\t\t\t\t{"+str(currentItems)+"/"+str(maxItems)+"} MATCHED")
         checkout()
     else:
-        print("\nYour Keywords DID NOT MATCH")
-        if(keywordCount>0):
-            print("\t"+str(keywordCount)+" SOLD OUT items returned True")
-
+        print("\nYOU HAVE NO ITEMS IN YOUR CART!")
+        if(keywordCount>0): print("\t("+str(keywordCount)+") SOLD OUT items returned TRUE")
 
 def view_all():
     """
@@ -410,35 +409,24 @@ def view_all():
     if(printMessages): print("CHECKED ALL URLs")
     if(len(cart_list)>0): checkout()
 
-def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV, country='USA'):
+def update_info():
     """
     Allows the user of the shell to update all of the information for checkout
-    :param name: Name on card
-    :param phone: Phone for order
-    :param address: Billing and Shipping address
-    :param city: Billing City
-    :param state: Billing State
-    :param zip: Billing Zip
-    :param cardNumber: Billing Card Number
-    :param cardExpMonth: Billing Card Expiration Month
-    :param cardExpYear: Billing Card Expiration Year
-    :param cardCVV: Billing Card CVV
-    :param country: Billing Country (USA default)
     :return: Updated checkout fields
     """
     global buyerName, buyerAdress, buyerCity, buyerCountry, buyerMail, buyerState, buyerCardCVV, buyerCardExpMonth
     global buyerCardExpYear, buyerCardNumber, buyerZIP,  buyerTele
-    buyerName=name
-    buyerTele=phone
-    buyerAdress=address
-    buyerCity=city
-    buyerState=state
-    buyerZIP=zip
-    buyerCountry=country
-    buyerCardNumber=cardNumber
-    buyerCardExpYear=cardExpYear
-    buyerCardExpMonth=cardExpMonth
-    buyerCardCVV=cardCVV
+
+    buyerName= input("Enter your card name: ")
+    buyerTele = input("Enter a valid 10 digit phone number: ")
+    buyerAdress = input("Enter your street address: ")
+    buyerZIP = input("Enter your zip code: ")
+    buyerCity = input("Enter your city: ")
+    buyerState = input("Enter your state (Caps two characters): ")
+    buyerCardNumber = input("Enter a valid card number: ")
+    buyerCardExpMonth = input("Enter the month the card expires (01/02/...): ")
+    buyerCardExpYear = input("Enter the year the card expires (2020/2021/...): ")
+    buyerCardCVV = input("Enter the CVV for the card: ")
     print("You have sucessfully updated your information\n")
 
 def bot_behavior(time_delay, on=False):
@@ -450,10 +438,10 @@ def bot_behavior(time_delay, on=False):
     print("\t\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
           "\t\t\tType help for a list of commands\n--------------------------------------------------------")
     cmd=""
-    global maxItems, buyerMaxPrice, encryp, decryp, printMessages
+    global maxItems, buyerMaxPrice, encryp, decryp, printMessages, moneyMode
     start_time=time.time()
     while(cmd!="quit"):
-        print("------------------- %.5f seconds -------------------" % (time.time() - start_time))
+        print("------------------- %.6f seconds -------------------" % (time.time() - start_time))
         cmd=input("> ")
         if(cmd=="item"):
             item = input("Input your preferred item[Jackets/Shirts/Hoodies]: ")
@@ -490,12 +478,16 @@ def bot_behavior(time_delay, on=False):
             start_time = time.time()
             view_all()
         elif(cmd=="items"):
+            start_time = time.time()
             maxItems=int(input("Enter the maximum amount of items: "))
         elif(cmd=="price"):
+            start_time = time.time()
             buyerMaxPrice = int(input("Enter the maximum amount to spend: $"))
         elif(cmd=="info"):
+            start_time = time.time()
             show_info()
         elif(cmd=="encrypt"):
+            start_time = time.time()
             if(encryp):
                 print("ENCRYPTION: OFF")
                 encryp=False
@@ -503,6 +495,7 @@ def bot_behavior(time_delay, on=False):
                 print("ENCRYPTION: ON\n\t{Messages are encrypted within the indexes}")
                 encryp=True
         elif(cmd=="decrypt"):
+            start_time = time.time()
             if (decryp):
                 print("DECRYPTION: OFF")
                 decryp = False
@@ -510,23 +503,24 @@ def bot_behavior(time_delay, on=False):
                 print("DECRYPTION: ON\n\t{Messages are decrypted within the indexes}")
                 decryp = True
         elif(cmd=="update"):
-            name = input("Enter your card name: ")
-            phone = input("Enter a valid 10 digit phone number: ")
-            address = input("Enter your street address: ")
-            zip = input("Enter your zip code: ")
-            city = str(input("Enter your city: "))
-            state = str(input("Enter your state (Caps two characters): "))
-            cardNumber = input("Enter a valid card number: ")
-            cardExpMonth = input("Enter the month the card expires (01/02/...): ")
-            cardExpYear = input("Enter the year the card expires (2020/2021/...): ")
-            cardCVV = input("Enter the CVV for the card: ")
             start_time = time.time()
-            update_info(name,phone,address,city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV)
+            update_info()
         elif(cmd=="emptycart"):
+            start_time = time.time()
             empty_cart()
         elif(cmd=="clearmemory"):
+            start_time = time.time()
             clear_memory()
+        elif(cmd=="money"):
+            start_time = time.time()
+            if(moneyMode):
+                print("MONEY PRIORITY: OFF")
+                moneyMode=False
+            else:
+                print("MONEY PRIORITY: ON\n\t\t\t{$"+str(buyerMaxPrice)+"}")
+                moneyMode=True
         elif(cmd=="print"):
+            start_time = time.time()
             if(printMessages):
                 print("MESSAGE PRINTING: OFF")
                 printMessages=False
@@ -534,14 +528,15 @@ def bot_behavior(time_delay, on=False):
                 print("MESSAGE PRINTING: ON")
                 printMessages=True
         elif(cmd=="help"):
+            start_time = time.time()
             print("--------------------------------------------------------\nitem: Search for a specific item with "
-                  "specific conditions\n\t(Type/Size/Color/Keywords)\nviewall: Find any new items regardless "
+                  "specific conditions\n\t\t{Type/Size/Color/Keywords}\nviewall: Find any new items regardless "
                   "of keywords\nupdate: Allow you to update the console information\n"
                   "items: Update the maximum items the bot can buy\nemptycart: empty the cart from the shell\n"
                   "price: Update the maximum price the box can "
                   "buy\nencrypt: Change keywords to predictive scrambled keywords\n"
-                  "\t(Using your own dictionary, site updates at 8:30AM)\n"
                   "decrypt: Read all encrypted keywords normally on drop\n"
+                  "money: Toggle the priority between items and price\n"
                   "info: Displays settings for the current bot\n"
                   "print: Displays more messages of the backend\n"
                   "--------------------------------------------------------")
