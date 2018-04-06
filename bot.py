@@ -11,8 +11,7 @@ root_url = 'http://www.supremenewyork.com'  # Helper to print URLs with only the
 all_url = 'http://www.supremenewyork.com/shop/all'  # Main entrance point
 checkout_url = "https://www.supremenewyork.com/checkout"  # Checkout URL
 
-driver = webdriver.Firefox() # Driver for FireFox
-#driver = webdriver.Chrome() # Driver for Chrome
+driver = webdriver.Firefox()  # Driver for FireFox | driver = webdriver.Chrome() # Driver for Chrome
 
 buyerName = 'Bob Evans'  # Dummy information to be replaced on startup
 buyerMail = 'fake_email@gmail.com'
@@ -77,13 +76,13 @@ def show_info():
     Displays the settings the bot is running
     :return: Prints the settings to the users console
     """
-    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, \
+    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encryp, decryp, \
         printMessages, moneyMode
 
-    print("Items: \t\t\t{"+str(currentItems)+"/"+str(maxItems)+"}\nPrice: \t\t\t{$"+str(currentPrice)+"/$"+str(buyerMaxPrice)+
-          "}\nEncrypt: \t\t"+str(encryp)+"\nDecrypt: \t\t"+str(decryp) + "\nMoney Priority: " + str(moneyMode)
-          +"\nPrint Messages: "+str(printMessages)+"\nItems in cart: ")
-    if(len(url_list)==0): print("\t\t\t    {NONE}")
+    print("Items: \t\t\t{"+str(currentItems)+"/"+str(maxItems)+"}\nPrice: \t\t\t{$"+str(currentPrice)+"/$"+
+          str(buyerMaxPrice)+"}\nEncrypt: \t\t"+str(encryp)+"\nDecrypt: \t\t"+str(decryp) + "\nMoney Priority: "
+          + str(moneyMode) + "\nPrint Messages: "+str(printMessages)+"\nItems in cart: ")
+    if len(url_list) == 0: print("\t\t\t    {NONE}")
     for url in cart_list:
         print("\t\t{"+get_title(url) + "(Color: "+get_color(url)+")} ")
 
@@ -98,7 +97,8 @@ def clear_memory():
     cart_list = list()
     currentPrice = 10
     currentItems = 0
-    if printMessages: print("MEMORY IS DELETED: Billing and card info has not been changed")
+    if printMessages:
+        print("MEMORY IS DELETED: Billing and card info has not been changed")
 
 
 def check_stock(url):
@@ -111,10 +111,12 @@ def check_stock(url):
     soup = BeautifulSoup(source, 'html.parser')
     sold_raw = str(soup.find_all("b", class_="button sold-out"))
     if sold_raw is not None:
-        if printMessages: print("{"+get_title(url) + "(Color: "+get_color(url)+")} IN STOCK!")
+        if printMessages:
+            print("{" + get_title(url) + "(Color: " + get_color(url) + ")} IN STOCK!")
         return True
     else:
-        if printMessages: print("{"+get_title(url) + "(Color: "+get_color(url)+")} OUT OF STOCK!")
+        if printMessages:
+            print("{" + get_title(url) + "(Color: " + get_color(url) + ")} OUT OF STOCK!")
         return False
 
 
@@ -125,21 +127,21 @@ def check_size(url, size):
     :param size: (String) Size to check for
     :return: (Bool) True or False
     """
-    if size.upper() is "XLARGE" or size.upper() is "LARGE" or size.upper() is "MEDIUM" or size.upper() is "SMALL":
+    if size.upper() == "XLARGE" or size.upper() == "LARGE" or size.upper() == "MEDIUM" or size.upper() == "SMALL":
         try:
             source = requests.get(root_url + url).text
             soup = BeautifulSoup(source, 'html.parser')
             options = soup.find_all("Select", class_='s')
-            if len(options) == 0: return True
+            if len(options) == 0:
+                return True
             for element in options:
-                if size is element.text:
+                if size == element.text:
                     return True
-            if printMessages: print("\tERROR: {" + get_title(url) + "(" + get_color(url) + ")" +
-                                    "}\n\t\t\t*NOT AVAILABLE IN {" + size + "} SIZE")
+            if printMessages:
+                print("\tERROR: {" + get_title(url) + "(" + get_color(url) + ")" +
+                      "}\n\t\t\t*NOT AVAILABLE IN {" + size + "} SIZE")
         except NoSuchElementException:
             print("ERROR: No Sizes to display")
-
-
     if printMessages: print("\nERROR: {"+size+"} SIZE IS NOT CORRECT!")
     return False
 
@@ -153,13 +155,14 @@ def get_cart():
     print("    --------------------Cart---------------------")
     if len(cart_list) == 0: print("\t-{NOTHING IN CART}")
     for item in cart_list:
-        print("  \t-{"+get_title(item)+"}: {Color: "+get_color(item)+"}")
+        print("  \t-{" + get_title(item)+"}: {Color: " + get_color(item)+"}")
+    print("\n")
 
 
 def get_root(urls):
     """
     Returns the root of the url that is unique
-    :param url: (String) URL to manipulate
+    :param urls: (String) URL to manipulate
     :return: (String) simplified url
     """
     a = str(urls).split("/")
@@ -210,9 +213,18 @@ def check_unique(url):
         spl = spl[2:4]
         for b in bang:
             for s in spl:
-                if b is s:
+                if b == s:
                     return False
     return True
+
+
+def similar_style(url, color):
+    """
+    Determines the color of the other styles to check against the users preferred color
+    :param url: (String) URL of first item
+    :return:
+    """
+
 
 
 def update_url(url):
@@ -235,27 +247,35 @@ def add_item(url, size=None):
     :return: An item in the shopping cart
     """
     global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages, moneyMode
+    driver.get("http://www.supremenewyork.com" + url)
     source = requests.get(root_url+url).text
     soup = BeautifulSoup(source, 'html.parser')
     price = int(soup.find("p", class_='price').text[1:4])
-    if moneyMode and (((currentPrice+price))*1.07545)>buyerMaxPrice:
-        if printMessages: print("\tUNABLE TO ADD TO CART: TOO EXPENSIVE")
+    if moneyMode and ((currentPrice+price)*1.07545) > buyerMaxPrice:
+        if printMessages:
+            print("\tUNABLE TO ADD TO CART: TOO EXPENSIVE")
         return 0
-    driver.get("http://www.supremenewyork.com" + url)
-    if size!=None:
+    if size is not None:
         try:
             Select(driver.find_element_by_id('s')).select_by_visible_text(size)
         except NoSuchElementException:
-            if printMessages : print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size +
-                                     " IN STOCK!")
+            if printMessages :
+                print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-    driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-    cart_list.append(url)
-    if(printMessages): print("\nADDED: {" + get_title(url) + "} to the cart\n\tColor: "+get_color(url) +
-              "\n--------------------------------------------------------\n\t($" + str(currentPrice)+"+$" +
-                             str(price)+") < $"+str(buyerMaxPrice) + "\n")
-    currentPrice += price
-    currentItems += 1
+        if printMessages:
+            print("ERROR: UNABLE TO ADD TO CART")
+    try:
+        driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
+        cart_list.append(url)
+        if printMessages:
+            print("\nADDED: {" + get_title(url) + "} to the cart\n\tColor: " + get_color(url) +
+                  "\n--------------------------------------------------------\n\t($" +
+                  str(currentPrice) + "+$" + str(price) + ") < $" + str(buyerMaxPrice) + "\n")
+        currentPrice += price
+        currentItems += 1
+    except NoSuchElementException:
+        if printMessages:
+            print("ERROR: ITEM IS SOLD OUT/UNAVAILABLE")
 
 
 def checkout():
@@ -300,7 +320,7 @@ def checkout():
           + str(buyerMaxPrice)+"\n--------------------------------------------------------")
 
 
-def item_target(item, size=None, keyWords=[], color=None):
+def item_target(item, size=None, key_words=list, color=None):
     """
     Target a certain type of item, by manipulating the all_url and adding the item
     word at the end you will arrive the the catagory to scrape, then it will check to see if the
@@ -308,7 +328,7 @@ def item_target(item, size=None, keyWords=[], color=None):
     then the function does a checkout
     :param item: (String) The string we will be modifying the URL with
     :param size: (String) Requested size of the item
-    :param keyWords: (List of Strings) Array of keywords to search with
+    :param key_words: (List of Strings) Array of keywords to search with
     :param color: (String) Requested color of the item
     :return:
     """
@@ -316,7 +336,7 @@ def item_target(item, size=None, keyWords=[], color=None):
     source = requests.get(all_url+"/"+item).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
-    keywordCount = 0
+    key_count = 0
     hits = []
     for item in items:
         s = str(item).split('"')
@@ -324,16 +344,19 @@ def item_target(item, size=None, keyWords=[], color=None):
         key = str(item).split(">")
         item_keys = key[6][:-3].split(" ")
         item_color = key[10][:-3]
-        if("sold_out_tag" in s):
+        if item_color.upper() == color.upper():
+            if printMessages:
+                print("\tSAME COLOR\tSAME COLOR")
+        if "sold_out_tag" in s:
             sold_keys = key[8][:-3].split(" ")
             for key in sold_keys:
                 key = key.replace("®", "")
-                for our in keyWords:
+                for our in key_words:
                     if(key.upper() == our.upper()) and (get_root(url) not in hits):
-                        keywordCount+=1
+                        key_count += 1
                         if printMessages:
-                            print("\nSuccessful keywork match: \n\t(" + get_title(url)
-                              + "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
+                            print("\nSuccessful keywork match: \n\t(" + get_title(url) +
+                                  "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
                         hits.append(get_root(url))
         else:
             if url in url_list:
@@ -344,23 +367,23 @@ def item_target(item, size=None, keyWords=[], color=None):
                           + "{Color: " + get_color(url) + "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
                 for key in item_keys:
                     key.replace("®", "")
-                    for our in keyWords:
+                    for our in key_words:
                         if(key.upper() == our.upper() and (size is None or check_size(url, size)) and check_unique(url)
                                 and (maxItems>currentItems) and check_stock(url)):
-                            if(printMessages): print("KEYWORK MATCH: " + key + ":"+our)
+                            if printMessages: print("KEYWORK MATCH: " + key + ":"+our)
                             add_item(url, size)
                             update_url(url)
-                if len(cart_list)==maxItems:
+                if len(cart_list) == maxItems:
                     print("\nReached Maximum Item Limit!")
                     checkout()
                     return 0
-
-    if len(cart_list)>0:
+    if len(cart_list) > 0:
         print("\nChecked all URLS:\n\t\t\t\t{"+str(currentItems)+"/"+str(maxItems)+"} URLs MATCHED")
         checkout()
     else:
         print("\nNO ITEMS WERE AVAILABLE FOR PURCHASE:")
-        if keywordCount>0: print("\t("+str(keywordCount)+") MATCHED SOLD OUT ITEMS")
+        if key_count > 0:
+            print("\t("+str(key_count)+") MATCHED SOLD OUT ITEMS")
 
 
 def view_all():
@@ -384,12 +407,14 @@ def view_all():
                 if printMessages: print("Already viewed URL")
             else:
                 update_url(url)
-            if len(cart_list)==maxItems:
-                if printMessages: print("\nReached Maximum Item Limit! ("+str(maxItems)+"/"+str(maxItems)+")")
+            if len(cart_list) == maxItems:
+                if printMessages:
+                    print("\nReached Maximum Item Limit! ("+str(maxItems)+"/"+str(maxItems)+")")
                 checkout()
                 return 0
     if printMessages: print("\nChecked all URLS:\n\t\t\t\t{"+str(currentItems)+"/"+str(maxItems)+"} MATCHED")
-    if len(cart_list)>0: checkout()
+    if len(cart_list) > 0:
+        checkout()
 
 
 def update_info():
@@ -411,7 +436,7 @@ def update_info():
     buyerCardExpYear = input("Enter the year the card expires (2020/2021/...): ")
     buyerCardCVV = input("Enter the CVV for the card: ")
 
-    print("You have sucessfully updated your information\n")
+    print("You have successfully updated your information\n")
 
 
 def bot_behavior(time_delay, on=False):
@@ -443,8 +468,8 @@ def bot_behavior(time_delay, on=False):
             print("\tINPUT 'end' TO EXIT")
             while key != "end":
                 key = input("Enter a keyword to search for: ")
-                if key!="end" and encryp:
-                    key=encrypt(key.capitalize())
+                if key != "end" and encryp:
+                    key = encrypt(key.capitalize())
                     if printMessages: print("\tEncrypted: {" + key + "}")
                 keys.append(key.capitalize())
             live = input("Do you want this to be live[y/N]: ")
@@ -464,7 +489,7 @@ def bot_behavior(time_delay, on=False):
             view_all()
         elif cmd == "items":
             start_time = time.time()
-            maxItems=int(input("Enter the maximum amount of items: "))
+            maxItems = int(input("Enter the maximum amount of items: "))
         elif cmd == "price":
             start_time = time.time()
             buyerMaxPrice = int(input("Enter the maximum amount to spend: $"))
@@ -525,8 +550,11 @@ def bot_behavior(time_delay, on=False):
                   "info: Displays settings for the current bot\n"
                   "print: Displays more messages of the backend\n"
                   "--------------------------------------------------------")
+        elif cmd == "quit":
+            pass
         else:
             print(cmd + ": is not a recognized command!")
 
-"""Main Logic Call"""
+
+"""Main Logic Call with half of a second of rest between iterations"""
 bot_behavior(.5, False)
