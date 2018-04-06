@@ -12,7 +12,8 @@ root_url = 'http://www.supremenewyork.com' # Helper to print URLs with only the 
 all_url = 'http://www.supremenewyork.com/shop/all' # Main entrance point
 checkout_url = "https://www.supremenewyork.com/checkout" # Checkout URL
 
-driver = webdriver.Chrome('C:/chromedriver.exe') # Chromedriver.exe is pointed to root of C:/
+driver = webdriver.Firefox('C:/Drivers/') # Pointed to parent folder of Geckodriver.exe
+#driver = webdriver.Chrome() # Pointed to PATH
 
 buyerName='Bob Evans' # Dummy information to be replaced on startup
 buyerMail='fake_email@gmail.com'
@@ -88,12 +89,12 @@ def clear_memory():
     Clears the bots memory of URLS
     :return: List locations wiped clean and reset global variables
     """
-    global url_list, cart_list, currentItems, currentPrice
+    global url_list, cart_list, currentItems, currentPrice, printMessages
     url_list = list()
     cart_list = list()
     currentPrice = 10
     currentItems = 0
-    if(printMessages): print("tMEMORY IS CLEAR: your billing and card info has not been changed")
+    if(printMessages): print("MEMORY IS CLEAR: your billing and card info has not been changed")
 
 def empty_cart():
     """
@@ -102,10 +103,10 @@ def empty_cart():
     """
     global cart_list, currentItems, currentPrice
     for x in range(0, currentItems):
-        driver.get(root_url + "/shop/cart")
+        driver.get(root_url + "/shop/cart/")
         byes = driver.find_elements_by_class_name("intform")
         for bye in byes:
-            bye.submit()
+            bye.click()
             print("Removed from cart")
     currentItems = 0
     currentPrice = 0
@@ -245,18 +246,18 @@ def add_item(url, size=None):
     :param size: (String) Size of the clothing to buy (if any)
     :return: An item in the shopping cart
     """
+    global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages
     driver.get("http://www.supremenewyork.com" + url)
     if(size!=None):
         try:
             Select(driver.find_element_by_id('s')).select_by_visible_text(size)
         except NoSuchElementException:
-            print("\t\t"+url+": DID NOT HAVE A " + size + " IN STOCK!")
+            if(printMessages): print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-    wait = WebDriverWait(driver, 2)
-    something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
+    #wait = WebDriverWait(driver, 2)
+    #something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
     driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-    time.sleep(.03)
-    global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages
+    #time.sleep(.03)
     cart_list.append(url)
     prices = driver.find_elements_by_class_name("price")
     price = int(prices[0].text[1:4])
@@ -364,7 +365,7 @@ def item_target(item, size=None, keyWords=[], color=None):
                     for our in keyWords:
                         if(key.upper()==our.upper() and (size==None or check_size(url, size)) and check_unique(url)
                                 and (maxItems>itemCount) and check_stock(url)):
-                            if(printMessages): print("\nKEYWORK MATCH: "+ key + ":"+our)
+                            if(printMessages): print("KEYWORK MATCH: "+ key + ":"+our)
                             add_item(url, size)
                             update_url(url)
                             itemCount+=1
