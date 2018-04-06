@@ -3,7 +3,6 @@ import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,6 +14,14 @@ root_types = []
 checkout_url = "https://www.supremenewyork.com/checkout"
 
 driver = webdriver.Chrome('C:/chromedriver.exe')
+
+alphabet1 = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+alphabet2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z']
+numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+
+customAlphabet = []
+key = ""
 
 buyerName='Mahdi Haji'
 buyerMail='dmd9042@gmail.com'
@@ -44,29 +51,35 @@ cart_list = []
 
 url_list = []
 
+def create_alphabet(english, scrambled):
+    """
+    Taking a scrambled and plain text version of the same word we will calculate the code and create a alphabet
+    to translate kewyords
+    :param english: (String) English version of the word
+    :param scrambled: (String) Scrambled version of the word
+    :return: global customAlphabet and key will be populated
+    """
+    pass
+
 def encrypt(message):
     """
     Given a string scramble it in able to search the site on launch
     :param message: (String) English word the user typed in to be encrypted
     :return message: (String) Scrambled english the site can search with
     """
-    alphabet1 = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-    alphabet2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                'V', 'W', 'X', 'Y', 'Z']
-    numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     return message
 
 def decrypt(message):
     """
     Read scrambled messages and translate them into english for reading
-    :param message: Scrambled english
-    :return: Readable English
+    :param message: (String) Scrambled english
+    :return: (String) Readable English
     """
-    return 0
+    return message
 
 def show_info():
     """
-    Displays the settings the bot is runing
+    Displays the settings the bot is running
     :return:
     """
     global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, printMessages
@@ -88,10 +101,10 @@ def clear_memory():
     currentPrice = 10
     currentItems = 0
 
-def clear_cart():
+def empty_cart():
     """
     Clear the cart from the console
-    :return: A clear cart
+    :return: An empty cart
     """
     global cart_list, currentItems, currentPrice
     for x in range(0, currentItems):
@@ -102,13 +115,13 @@ def clear_cart():
             print("Removed from cart")
     currentItems = 0
     currentPrice = 0
-    driver.get(all_url)
+    clear_memory()
 
 def check_stock(url):
     """
     Returns a boolean if it is in stock
-    :param url: URL of item
-    :return: True or False
+    :param url: (String) URL of item
+    :return: (Bool) True or False
     """
     source = requests.get(root_url + url).text
     soup = BeautifulSoup(source, 'html.parser')
@@ -121,9 +134,9 @@ def check_stock(url):
 def check_size(url, size):
     """
     Takes the URL and will return if it contains the specific size
-    :param url: URL to check
-    :param size: Size to check for
-    :return: True or False
+    :param url: (String) URL to check
+    :param size: (String) Size to check for
+    :return: (Bool) True or False
     """
     driver.get("http://www.supremenewyork.com" + url)
     try:
@@ -143,8 +156,8 @@ def check_size(url, size):
 def get_root(urls):
     """
     Returns the root of the url that is unique
-    :param url: URL to manipulate
-    :return: simplified url
+    :param url: (String) URL to manipulate
+    :return: (String) simplified url
     """
     a = str(urls).split("/")
     a = a[2:4]
@@ -154,8 +167,8 @@ def get_root(urls):
 def get_color(url):
     """
     Takes the URL and gives the color back
-    :param url:
-    :return:
+    :param url: (String) URL to obtain the color from
+    :return: (String) Color of the item
     """
     color = ""
     source = requests.get(root_url + url).text
@@ -168,22 +181,21 @@ def get_color(url):
 def get_title(url):
     """
     Takes the URL and gives the title back
-    :param url:
-    :return:
+    :param url: (String) URL of the item to obtain title from
+    :return:(String) Title of the item
     """
     source = requests.get(root_url+url).text
     soup = BeautifulSoup(source, 'html.parser')
     title_raw = str(soup.find_all("h1", class_='protect'))
     titlee = title_raw.split(">")
     title = titlee[1].split("<")[0]
-    print("Title: "+title)
     return title
 
 def check_unique(url):
     """
     Acts as a way to tell if we have seen this type of style before in another color
-    :param url: URL of the item to check
-    :return: True or False if we have seen it while alive
+    :param url: (String) URL of the item to check
+    :return: (Bool) True or False if we have seen it while alive
     """
     global url_list
     if (len(url_list) == 0):
@@ -195,7 +207,6 @@ def check_unique(url):
         spl = str(url).split("/")
         spl.remove("shop")
         spl = spl[2:4]
-        #print(" ".join(bang)+"\n"+" ".join(spl))
         for b in bang:
             for s in spl:
                 if(b==s):
@@ -206,7 +217,7 @@ def check_unique(url):
 def update_url(url):
     """
     Updates the global url_list array
-    :param url: Url to update the array
+    :param url: (String) Url to update the array
     :return: Updated global url_list array
     """
     global url_list
@@ -216,7 +227,7 @@ def update_url(url):
 def get_description(url):
     """
     Takes a URL and return the description of the product
-    :param url: URL to investigate
+    :param url: (String) URL to investigate
     :return: String of the description
     """
     driver.get("http://www.supremenewyork.com" + url)
@@ -228,8 +239,8 @@ def add_item(url, size=None):
     """
     Adds an item to the cart using a url and a size or style if available
     You can buy up to 10 items at a time
-    :param url: URL of the clothing to buy
-    :param size: Size of the clothing to buy (if any)
+    :param url: (String) URL of the clothing to buy
+    :param size: (String) Size of the clothing to buy (if any)
     :return: An item in the shopping cart
     """
     driver.get("http://www.supremenewyork.com" + url)
@@ -262,7 +273,7 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
-    print("--------------------------------------------------------\nAttempting to checkout... \n...\n...")
+    print("--------------------------------------------------------\nAttempting to checkout... \n...\n...\n...")
     time.sleep(.3)
     try:
         driver.get(checkout_url)
@@ -296,22 +307,20 @@ def checkout():
         print("Error: Could not Checkout!")
     global currentPrice, currentItems
     final = "%0.2f" % (float((currentPrice)*1.07495))
-    print("CHECKOUT:\n\t("+str(currentItems)+"/"+str(maxItems) +") ITEMS: " + "$"+str(final)+"/$"+str(buyerMaxPrice)
+    print("CHECKOUT COMPLETE:\n\t("+str(currentItems)+"/"+str(maxItems) +") ITEMS: " + "$"+str(final)+"/$"+str(buyerMaxPrice)
           +"\n--------------------------------------------------------")
 
 
-def item_target(item, size=None, keyWords=[], color=None, print_messages=False):
+def item_target(item, size=None, keyWords=[], color=None):
     """
     Target a certain type of item, by manipulating the all_url and adding the item
     word at the end you will arrive the the catagory to scrape, then it will check to see if the
     item matches any keywords, if so it adds it to the cart. When the max items or price is reached
     then the function does a checkout
-    :param item: The string we will be modifying the URL with
-    :param size: Requested size of the item
-    :param keyWords: Array of keywords to search with
-    :param color: Requested color of the item
-    :param maxItems: Maximum amonunt of items
-    :param maxPrice: Maximum price for the order
+    :param item: (String) The string we will be modifying the URL with
+    :param size: (String) Requested size of the item
+    :param keyWords: (List of Strings) Array of keywords to search with
+    :param color: (String) Requested color of the item
     :return:
     """
     global maxItems, buyerMaxPrice, printMessages
@@ -374,7 +383,6 @@ def item_target(item, size=None, keyWords=[], color=None, print_messages=False):
 def view_all():
     """
     View all of the instock items and add them to the cart
-    :param maxItems: Maximum amount of items to buy
     :return:
     """
     global maxItems, url_list, printMessages
@@ -513,8 +521,8 @@ def bot_behavior(time_delay, on=False):
             cardCVV = input("Enter the CVV for the card: ")
             start_time = time.time()
             update_info(name,phone,address,city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV)
-        elif(cmd=="clearcart"):
-            clear_cart()
+        elif(cmd=="emptycart"):
+            empty_cart()
         elif(cmd=="clearmemory"):
             clear_memory()
         elif(cmd=="print"):
@@ -528,7 +536,8 @@ def bot_behavior(time_delay, on=False):
             print("--------------------------------------------------------\nitem: Search for a specific item with "
                   "specific conditions\n\t(Type/Size/Color/Keywords)\nviewall: Find any new items regardless "
                   "of keywords\nupdate: Allow you to update the console information\n"
-                  "items: Update the maximum items the bot can buy\nprice: Update the maximum price the box can "
+                  "items: Update the maximum items the bot can buy\nemptycart: empty the cart from the shell\n"
+                  "price: Update the maximum price the box can "
                   "buy\nencrypt: Change keywords to predictive scrambled keywords\n"
                   "\t(Using your own dictionary, site updates at 8:30AM)\n"
                   "decrypt: Read all encrypted keywords normally on drop\n"
