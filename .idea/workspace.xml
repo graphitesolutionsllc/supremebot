@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eb0dc08d-3ad1-4478-bb43-d4ee41e475af" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
+      <change beforePath="$PROJECT_DIR$/setup/README.txt" afterPath="$PROJECT_DIR$/setup/README.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +17,21 @@
       <file leaf-file-name="bot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1161">
-              <caret line="119" column="7" lean-forward="false" selection-start-line="119" selection-start-column="7" selection-end-line="119" selection-end-column="7" />
+            <state relative-caret-position="257">
+              <caret line="494" column="75" lean-forward="false" selection-start-line="494" selection-start-column="75" selection-end-line="494" selection-end-column="75" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup/README.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="9" column="74" lean-forward="false" selection-start-line="9" selection-start-column="74" selection-end-line="9" selection-end-column="74" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,6 +71,7 @@
         <option value="$PROJECT_DIR$/fam.py" />
         <option value="$PROJECT_DIR$/supreme_file_dump.py" />
         <option value="$PROJECT_DIR$/obselete_code.py" />
+        <option value="$PROJECT_DIR$/setup/README.txt" />
         <option value="$PROJECT_DIR$/bot.py" />
       </list>
     </option>
@@ -95,6 +107,11 @@
             <path>
               <item name="tbot" type="b2602c69:ProjectViewProjectNode" />
               <item name="tbot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tbot" type="462c0819:PsiDirectoryNode" />
+              <item name="setup" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -234,10 +251,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/setup/README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="9" column="74" lean-forward="false" selection-start-line="9" selection-start-column="74" selection-end-line="9" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1161">
-          <caret line="119" column="7" lean-forward="false" selection-start-line="119" selection-start-column="7" selection-end-line="119" selection-end-column="7" />
+        <state relative-caret-position="257">
+          <caret line="494" column="75" lean-forward="false" selection-start-line="494" selection-start-column="75" selection-end-line="494" selection-end-column="75" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

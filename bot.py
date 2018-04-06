@@ -147,7 +147,8 @@ def check_size(url, size):
         for element in options:
             if (size == element.text):
                 return True
-        print("ERROR: NOT AVAILABLE IN " + size + " SIZE")
+        if(printMessages): print("\tERROR: {"+ get_title(url)+"("+get_color(url)+")"
+                                 +"}\n\t\t\t*NOT AVAILABLE IN " + size + " SIZE")
     except NoSuchElementException:
         print("ERROR: No Sizes to display")
 
@@ -345,7 +346,7 @@ def item_target(item, size=None, keyWords=[], color=None):
                     if ((key.upper() == our.upper()) and (get_root(url) not in hits)):
                         keywordCount+=1
                         if(printMessages):
-                            print("Successful keywork match: \n\t(" + get_title(url)
+                            print("\nSuccessful keywork match: \n\t(" + get_title(url)
                               + "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
                         hits.append(get_root(url))
         else:
@@ -355,7 +356,7 @@ def item_target(item, size=None, keyWords=[], color=None):
                 pass
             else:
                 if(printMessages):
-                    print("Successful keywork match: \n\t(" + get_title(url)
+                    print("\nSuccessful keywork match: \n\t(" + get_title(url)
                           + "{Color: " + get_color(url) + "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
                 for key in item_keys:
                     key = key.replace("®","")
@@ -491,22 +492,22 @@ def bot_behavior(time_delay, on=False):
         elif(cmd=="items"):
             maxItems=int(input("Enter the maximum amount of items: "))
         elif(cmd=="price"):
-            buyerMaxPrice = int(input("Enter the maximum amount to spend: "))
+            buyerMaxPrice = int(input("Enter the maximum amount to spend: $"))
         elif(cmd=="info"):
             show_info()
         elif(cmd=="encrypt"):
             if(encryp):
-                print("TURNING OFF ENCRYPTION")
+                print("ENCRYPTION: OFF")
                 encryp=False
             else:
-                print("TURNING ON ENCRYPTION")
+                print("ENCRYPTION: ON\n\t{Messages are encrypted within the indexes}")
                 encryp=True
         elif(cmd=="decrypt"):
             if (decryp):
-                print("TURNING OFF DECRYPTION")
+                print("DECRYPTION: OFF")
                 decryp = False
             else:
-                print("TURNING ON DECRYPTION")
+                print("DECRYPTION: ON\n\t{Messages are decrypted within the indexes}")
                 decryp = True
         elif(cmd=="update"):
             name = input("Enter your card name: ")
