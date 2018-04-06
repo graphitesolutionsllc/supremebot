@@ -12,8 +12,8 @@ root_url = 'http://www.supremenewyork.com' # Helper to print URLs with only the 
 all_url = 'http://www.supremenewyork.com/shop/all' # Main entrance point
 checkout_url = "https://www.supremenewyork.com/checkout" # Checkout URL
 
-driver = webdriver.Firefox('C:/Drivers/') # Pointed to parent folder of Geckodriver.exe
-#driver = webdriver.Chrome() # Pointed to PATH
+driver = webdriver.Firefox() # Driver for FireFox
+#driver = webdriver.Chrome() # Driver for Chrome
 
 buyerName='Bob Evans' # Dummy information to be replaced on startup
 buyerMail='fake_email@gmail.com'
@@ -123,10 +123,10 @@ def check_stock(url):
     soup = BeautifulSoup(source, 'html.parser')
     sold_raw = str(soup.find_all("b", class_="button sold-out"))
     if(sold_raw!=None):
-        if(printMessages): print("IN STOCK!")
+        if(printMessages): print("{"+get_title(url) + "} IN STOCK!")
         return True
     else:
-        if (printMessages): print("OUT OF STOCK!")
+        if (printMessages): print("{"+get_title(url) + "} OUT OF STOCK!")
         return False
 
 def check_size(url, size):
@@ -246,7 +246,15 @@ def add_item(url, size=None):
     :param size: (String) Size of the clothing to buy (if any)
     :return: An item in the shopping cart
     """
-    global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages
+    global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages, moneyMode
+    source = requests.get(root_url+url).text
+    soup = BeautifulSoup(source, 'html.parser')
+    price = soup.find("p", class_='price')
+    #print(price)
+    price = int(price.text[1:4])
+    if(moneyMode and (((currentPrice+price))*1.075)>buyerMaxPrice):
+        if(printMessages): print("\tUNABLE TO ADD TO CART: TOO EXPENSIVE")
+        return 0
     driver.get("http://www.supremenewyork.com" + url)
     if(size!=None):
         try:
@@ -254,21 +262,18 @@ def add_item(url, size=None):
         except NoSuchElementException:
             if(printMessages): print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-    #wait = WebDriverWait(driver, 2)
-    #something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
+    wait = WebDriverWait(driver, 2)
+    something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
     driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
     #time.sleep(.03)
     cart_list.append(url)
-    prices = driver.find_elements_by_class_name("price")
-    price = int(prices[0].text[1:4])
     if(printMessages):
-        print("ADDED: {" + get_title(url) + "} to the cart\n\tColor: "+get_color(url)+
+        print("\nADDED: {" + get_title(url) + "} to the cart\n\tColor: "+get_color(url)+
               "\n--------------------------------------------------------\n\t($"
                   +str(currentPrice)+"+$"+str(price)+") < $"+str(buyerMaxPrice) + "\n")
     currentPrice += price
     currentItems+=1
     return 0
-
 
 def checkout():
     """
