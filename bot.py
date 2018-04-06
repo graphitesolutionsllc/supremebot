@@ -79,10 +79,10 @@ def show_info():
     global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encryp, decryp, \
         printMessages, moneyMode
 
-    print("Items: \t\t\t{"+str(currentItems)+"/"+str(maxItems)+"}\nPrice: \t\t\t{$"+str(currentPrice)+"/$"+
-          str(buyerMaxPrice)+"}\nEncrypt: \t\t"+str(encryp)+"\nDecrypt: \t\t"+str(decryp) + "\nMoney Priority: "
+    print("Items: \t\t{"+str(currentItems)+"/"+str(maxItems)+"}\nPrice: \t\t{$"+str(currentPrice)+"/$"+
+          str(buyerMaxPrice)+"}\nEncrypt: \t"+str(encryp)+"\nDecrypt: \t"+str(decryp) + "\nMoney Priority: "
           + str(moneyMode) + "\nPrint Messages: "+str(printMessages)+"\nItems in cart: ")
-    if len(url_list) == 0: print("\t\t\t    {NONE}")
+    if len(url_list) == 0: print("\t\t{NONE}")
     for url in cart_list:
         print("\t\t{"+get_title(url) + "(Color: "+get_color(url)+")} ")
 
@@ -320,7 +320,7 @@ def checkout():
           + str(buyerMaxPrice)+"\n--------------------------------------------------------")
 
 
-def item_target(item, size=None, key_words=list, color=None):
+def item_target(item, size=None, key_words=[], color=None):
     """
     Target a certain type of item, by manipulating the all_url and adding the item
     word at the end you will arrive the the catagory to scrape, then it will check to see if the
@@ -445,8 +445,8 @@ def bot_behavior(time_delay, on=False):
     :param time_delay: Time delay between checking for the items
     :return:
     """
-    print("\t\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
-          "\t\t\tType help for a list of commands\n--------------------------------------------------------")
+    print("\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
+          "\t\tType help for a list of commands\n--------------------------------------------------------")
     cmd=""
     global maxItems, buyerMaxPrice, encryp, decryp, printMessages, moneyMode
     start_time = time.time()
@@ -549,9 +549,12 @@ def bot_behavior(time_delay, on=False):
                   "money: Toggle the priority between items and price\n"
                   "info: Displays settings for the current bot\n"
                   "print: Displays more messages of the backend\n"
+                  "quit: Closes the browser and exits the loop\n"
                   "--------------------------------------------------------")
         elif cmd == "quit":
-            pass
+            print("Closing Mozilla FireFox\n\tEnding processes...")
+            time.sleep(1)
+            driver.quit()
         else:
             print(cmd + ": is not a recognized command!")
 
