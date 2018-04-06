@@ -1,0 +1,52 @@
+8DEYTY mTNS e0b15 Jb15Tg Bonded Mesh Track Jacket
+XD0FY lbMD9N RbyDE hSi0g World Famous Rayon Shirt
+8b15fb15 Backpack
+8Fb15 Black
+o9ppFT 8bt Duffel Bag
+8FD15 ZDtD 4Ty1SbiE Black Logo Keychain
+h9f0TMT®/ObETN® C0Tx hD15N (K 2b15) Supreme/Hanes Crew Socks (4 Pack)
+h9f0TMT®/UsonRCHVnR/29aFi1 nETMy mTYbFFiDE 2D91S Supreme/UNDERCOVER/Public Enemy Medallion Pouch
+13
+N-s
+o-D
+r-0
+t-g
+h-S
+F-l
+a-b
+c-1
+e-T
+
+    message = str(message).replace('a', 'b')
+    message = str(message).replace('B', '8')
+    message = str(message).replace('c', '1')
+    message = str(message).replace('d', 'Y')
+    message = str(message).replace('D', 'o')
+    message = str(message).replace('e', 'T')
+
+    message = str(message).replace('G', 'Q')
+    message = str(message).replace('g', 't')
+    message = str(message).replace('S', 'h')
+    message = str(message).replace('h', 'S')
+    message = str(message).replace('i', 'i')
+    message = str(message).replace('k', '5')
+    message = str(message).replace('m', 'M')
+    message = str(message).replace('M', 'm')
+    message= str(message).replace('N', 's')
+    message = str(message).replace('o', 'D')
+    message = str(message).replace('P', '2')
+    message = str(message).replace('p', 'f')
+    message = str(message).replace('r', '0')
+    message = str(message).replace('R', 'R')
+    message = str(message).replace('s', 'N')
+    message = str(message).replace('u', '9')
+    message = str(message).replace('v', 'j')
+    message = str(message).replace('y', 'y')
+    message = str(message).replace('h', 'S')
+    message = str(message).replace('g', 't')
+    message = str(message).replace('t', 'g')
+    message = str(message).replace('N', 's')
+    message = str(message).replace('F', 'l')
+    message = str(message).replace('l', 'F')
+    message = str(message).replace('S', 'h')
+    message = str(message).replace('h', 'S')

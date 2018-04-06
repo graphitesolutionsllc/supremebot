@@ -30,35 +30,57 @@ buyerCardExpMonth='03'
 buyerCardExpYear='2021'
 buyerCardCVV = '017'
 
-buyerMaxPrice = 5000
+buyerMaxPrice = 1000
 #This starts at 10 due to the ship and handle fee
 currentPrice = 10
 
 encryp = False
 decryp = False
+printMessages = False
 
 currentItems = 0
-maxItems = 7
+maxItems = 5
 cart_list = []
 
 url_list = []
+
+def encrypt(message):
+    """
+    Given a string scramble it in able to search the site on launch
+    :param message: (String) English word the user typed in to be encrypted
+    :return message: (String) Scrambled english the site can search with
+    """
+    alphabet1 = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    alphabet2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    return message
+
+def decrypt(message):
+    """
+    Read scrambled messages and translate them into english for reading
+    :param message: Scrambled english
+    :return: Readable English
+    """
+    return 0
 
 def show_info():
     """
     Displays the settings the bot is runing
     :return:
     """
-    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt
+    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, printMessages
 
     print("Items: "+str(currentItems)+"/"+str(maxItems)+"\nPrice: $"+str(currentPrice)+"/$"+str(buyerMaxPrice)+
-          "\nEncrypt: "+str(encryp)+"\nDecrypt: "+str(decryp)+"\nURLS(in cart): ")
+          "\nEncrypt: "+str(encryp)+"\nDecrypt: "+str(decryp)
+          +"\nPrint Messages: "+str(printMessages)+"\nURLS(in cart): ")
     for url in url_list:
         print("\t http://www.supremenewyork.com" + url)
 
 def clear_memory():
     """
     Clears the bots memory of URLS
-    :return:
+    :return: List locations wiped clean and reset global variables
     """
     global url_list, cart_list, currentItems, currentPrice
     url_list = list()
@@ -82,70 +104,18 @@ def clear_cart():
     currentPrice = 0
     driver.get(all_url)
 
-def encrypt(message):
-    """
-    Given a string scramble it in able to search the site on launch
-    :param message: (String) English word the user typed in to be encrypted
-    :return message: (String) Scrambled english the site can search with
-    """
-    alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    message = str(message).replace('a', 'b')
-    message = str(message).replace('B', '8')
-    message = str(message).replace('c', '1')
-    message = str(message).replace('d', 'Y')
-    message = str(message).replace('D', 'o')
-    message = str(message).replace('e', 'T')
-
-    message = str(message).replace('G', 'Q')
-    message = str(message).replace('g', 't')
-    message = str(message).replace('S', 'h')
-    message = str(message).replace('h', 'S')
-    message = str(message).replace('i', 'i')
-    message = str(message).replace('k', '5')
-    message = str(message).replace('m', 'M')
-    message = str(message).replace('M', 'm')
-    message= str(message).replace('N', 's')
-    message = str(message).replace('o', 'D')
-    message = str(message).replace('P', '2')
-    message = str(message).replace('p', 'f')
-    message = str(message).replace('r', '0')
-    message = str(message).replace('R', 'R')
-    message = str(message).replace('s', 'N')
-    message = str(message).replace('u', '9')
-    message = str(message).replace('v', 'j')
-    message = str(message).replace('y', 'y')
-    message = str(message).replace('h', 'S')
-    message = str(message).replace('g', 't')
-    message = str(message).replace('t', 'g')
-    message = str(message).replace('N', 's')
-    message = str(message).replace('F', 'l')
-    message = str(message).replace('l', 'F')
-    message = str(message).replace('S', 'h')
-    message = str(message).replace('h', 'S')
-    print("\tEncrypted: {"+message+"}")
-    return message
-
-def decrypt(message):
-    """
-    Read scrambled messages and translate them into english for reading
-    :param message: Scrambled english
-    :return: Readable English
-    """
-    return 0
-
 def check_stock(url):
     """
     Returns a boolean if it is in stock
     :param url: URL of item
     :return: True or False
     """
-    driver.get("http://www.supremenewyork.com" + url)
-    try:
-        driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input')
+    source = requests.get(root_url + url).text
+    soup = BeautifulSoup(source, 'html.parser')
+    sold_raw = str(soup.find_all("b", class_="button sold-out"))
+    if(sold_raw!=None):
         return True
-    except NoSuchElementException:
+    else:
         return False
 
 def check_size(url, size):
@@ -170,7 +140,16 @@ def check_size(url, size):
 
     return False
 
-
+def get_root(urls):
+    """
+    Returns the root of the url that is unique
+    :param url: URL to manipulate
+    :return: simplified url
+    """
+    a = str(urls).split("/")
+    a = a[2:4]
+    a = ''.join(a)
+    return a
 
 def get_color(url):
     """
@@ -178,9 +157,12 @@ def get_color(url):
     :param url:
     :return:
     """
-    driver.get("http://www.supremenewyork.com" + url)
-    color_raw = driver.find_element_by_xpath("//*[@class='style protect']")
-    color = color_raw.text
+    color = ""
+    source = requests.get(root_url + url).text
+    soup = BeautifulSoup(source, 'html.parser')
+    color_raw = str(soup.find_all("p", class_='style protect'))
+    colorr = color_raw.split(">")
+    color = colorr[1].split("<")[0]
     return color
 
 def get_title(url):
@@ -189,9 +171,12 @@ def get_title(url):
     :param url:
     :return:
     """
-    driver.get("http://www.supremenewyork.com" + url)
-    title_raw = driver.find_element_by_class_name("protect")
-    title = title_raw.text
+    source = requests.get(root_url+url).text
+    soup = BeautifulSoup(source, 'html.parser')
+    title_raw = str(soup.find_all("h1", class_='protect'))
+    titlee = title_raw.split(">")
+    title = titlee[1].split("<")[0]
+    print("Title: "+title)
     return title
 
 def check_unique(url):
@@ -254,17 +239,17 @@ def add_item(url, size=None):
         except NoSuchElementException:
             print("\t\t"+url+": DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-    wait = WebDriverWait(driver, 3)
+    wait = WebDriverWait(driver, 2)
     something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
     driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
     time.sleep(.03)
-    global currentPrice, currentItems, cart_list, buyerMaxPrice
+    global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages
     cart_list.append(url)
     prices = driver.find_elements_by_class_name("price")
     price = int(prices[0].text[1:4])
-
-    print("ADDED: {" + get_title(url) +
-                  "} to the cart\n\tColor: "+get_color(url)+"\n--------------------------------------------------------\n\t($"
+    if(printMessages):
+        print("ADDED: {" + get_title(url) + "} to the cart\n\tColor: "+get_color(url)+
+              "\n--------------------------------------------------------\n\t($"
                   +str(currentPrice)+"+$"+str(price)+") < $"+str(buyerMaxPrice) + "\n")
     currentPrice += price
     currentItems+=1
@@ -314,19 +299,6 @@ def checkout():
     print("CHECKOUT:\n\t("+str(currentItems)+"/"+str(maxItems) +") ITEMS: " + "$"+str(final)+"/$"+str(buyerMaxPrice)
           +"\n--------------------------------------------------------")
 
-def return_root(urls):
-    """
-    Returns the root of the url that is unique
-    :param url: URL to manipulate
-    :return: simplified url
-    """
-
-    a = str(urls).split("/")
-    a = a[2:4]
-    a = ''.join(a)
-    #print(a)
-    return a
-
 
 def item_target(item, size=None, keyWords=[], color=None, print_messages=False):
     """
@@ -342,48 +314,46 @@ def item_target(item, size=None, keyWords=[], color=None, print_messages=False):
     :param maxPrice: Maximum price for the order
     :return:
     """
-    global maxItems, buyerMaxPrice
+    global maxItems, buyerMaxPrice, printMessages
     new_url = all_url+"/"+item
     source = requests.get(new_url).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
-    itemCount=0
-    keywordCount=0
+    itemCount = 0
+    keywordCount =0
     hits = []
     for item in items:
         s = str(item).split('"')
+        url = s[3]
         key = str(item).split(">")
         item_keys = key[6][:-3].split(" ")
         item_color = key[10][:-3]
-        url = s[3]
         if("sold_out_tag" in s):
             sold_keys = key[8][:-3].split(" ")
             for key in sold_keys:
                 key = key.replace("®", "")
-                #print("New Key: " + key + ":"+keyWords[0])
                 for our in keyWords:
-                    if ((key.upper() == our.upper()) and (return_root(url) not in hits)):
+                    if ((key.upper() == our.upper()) and (get_root(url) not in hits)):
                         keywordCount+=1
-                        print("Successful keywork match: \n\t\t(" + get_title(url)
-                              + "{Color: "+get_color(url)+") is SOLD OUT!\n\t http://www.supremenewyork.com"+url)
-                        hits.append(return_root(url))
+                        if(printMessages):
+                            print("Successful keywork match: \n\t(" + get_title(url)
+                              + "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
+                        hits.append(get_root(url))
         else:
-            #print(item)
+            # print(item) #DEBUG LINE
             if(url in url_list):
-                #print("Already viewed URL")
+                if(printMessages): print("Already viewed URL")
                 pass
             else:
-                if(print_messages):
-                    print("FOUND ITEM: " + str(' '.join(item_keys)) + "\n\tColor: "+item_color +
-                      "\n\tURL: http://www.supremenewyork.com/"+url + "\n\tDescription: "+get_description(url))
+                if(printMessages):
+                    print("Successful keywork match: \n\t(" + get_title(url)
+                          + "{Color: " + get_color(url) + "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
                 for key in item_keys:
                     key = key.replace("®","")
-                    print("New Key: "+ key + ":"+keyWords[0])
                     for our in keyWords:
-                        our = our.replace("®","")
                         if(key.upper()==our.upper() and (size==None or check_size(url, size)) and check_unique(url)
                                 and (maxItems>itemCount) and check_stock(url)):
-                            print("\nKEYWORK MATCH: "+ key + ":"+our)
+                            if(printMessages): print("\nKEYWORK MATCH: "+ key + ":"+our)
                             add_item(url, size)
                             update_url(url)
                             itemCount+=1
@@ -392,48 +362,44 @@ def item_target(item, size=None, keyWords=[], color=None, print_messages=False):
                     checkout()
                     return 0
 
-    if(itemCount>0):
+    if(len(cart_list)>0):
         print("\nYou never reached your maximum item limit")
         checkout()
     else:
         print("\nYour Keywords DID NOT MATCH")
         if(keywordCount>0):
-            print("\t"+str(keywordCount)+" SOLD OUT items that returned True")
+            print("\t"+str(keywordCount)+" SOLD OUT items returned True")
 
 
-def view_all(inStock=False):
+def view_all():
     """
     View all of the instock items and add them to the cart
-    :param inStock: Boolean flag (Will print different text)
     :param maxItems: Maximum amount of items to buy
     :return:
     """
-    global maxItems
+    global maxItems, url_list, printMessages
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
-    #print(soup.prettify())
-    global url_list
     items = soup.find_all("div", class_='inner-article')
     for item in items:
-        #print(item)
+        #print(item) #DEBUG LINE
         s = str(item).split('"')
         if("sold_out_tag" in s):
             pass
         else:
-            i = s[3].split('/')
             url = s[3]
-            #print("Color: "+get_color(url))
             if check_unique(url) and check_stock(url):
                 add_item(url)
             if(url in url_list):
-            #    print("Already viewed URL")
-                pass
+                if(printMessages): print("Already viewed URL")
             else:
                 update_url(url)
-            if(maxItems!=None and len(cart_list)==maxItems):
+            if(len(cart_list)==maxItems):
+                if(printMessages): print("\nReached Maximum Item Limit! ("+str(maxItems)+"/"+str(maxItems)+")")
                 checkout()
-                return
-    checkout()
+                return 0
+    if(printMessages): print("CHECKED ALL URLs")
+    if(len(cart_list)>0): checkout()
 
 def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV, country='USA'):
     """
@@ -449,7 +415,7 @@ def update_info(name, phone, address, city, state, zip, cardNumber, cardExpMonth
     :param cardExpYear: Billing Card Expiration Year
     :param cardCVV: Billing Card CVV
     :param country: Billing Country (USA default)
-    :return: Updated checkout feilds
+    :return: Updated checkout fields
     """
     global buyerName, buyerAdress, buyerCity, buyerCountry, buyerMail, buyerState, buyerCardCVV, buyerCardExpMonth
     global buyerCardExpYear, buyerCardNumber, buyerZIP,  buyerTele
@@ -475,32 +441,29 @@ def bot_behavior(time_delay, on=False):
     print("\t\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
           "\t\t\tType help for a list of commands\n--------------------------------------------------------")
     cmd=""
-    funny = False
-    global maxItems, buyerMaxPrice, encryp, decryp
+    global maxItems, buyerMaxPrice, encryp, decryp, printMessages
     start_time=time.time()
     while(cmd!="quit"):
-        print("\t\t------- %s seconds -------" % (time.time() - start_time))
+        print("------------------- %.5f seconds -------------------" % (time.time() - start_time))
         cmd=input("> ")
         if(cmd=="item"):
             item = input("Input your preferred item[Jackets/Shirts/Hoodies]: ")
             size = input("Input your preferred size[Small/Medium/Large/XLarge]: ")
-
             if(size == "xlarge" or size == "Xlarge"):
                 size = "XLarge"
+            elif (size == " " or size == ""):
+                size = None
             else:
-                if (size == " " or size == ""):
-                    size = None
-                else:
-                    size = size.capitalize()
+                size = size.capitalize()
             color = input("Input your preferred color[Gold/Silver/Red/Blue]: ")
             keys = []
             key = "e"
             print("\tINPUT 'end' TO EXIT")
             while (key != "end"):
                 key = input("Enter a keyword to search for: ")
-                if(key!="end") and funny:
-                    key2 = encrypt(key.capitalize())
-                    key=key2
+                if(key!="end") and encryp:
+                    key=encrypt(key.capitalize())
+                    if(printMessages): print("\tEncrypted: {" + key + "}")
                 keys.append(key.capitalize())
             live = input("Do you want this to be live[y/N]: ")
             start_time = time.time()
@@ -517,11 +480,11 @@ def bot_behavior(time_delay, on=False):
         elif(cmd=="viewall"):
             start_time = time.time()
             view_all()
-        elif(cmd=="maxitems"):
+        elif(cmd=="items"):
             maxItems=int(input("Enter the maximum amount of items: "))
-        elif(cmd=="maxprice"):
+        elif(cmd=="price"):
             buyerMaxPrice = int(input("Enter the maximum amount to spend: "))
-        elif(cmd=="showinfo" or cmd=="info"):
+        elif(cmd=="info"):
             show_info()
         elif(cmd=="encrypt"):
             if(encryp):
@@ -550,21 +513,27 @@ def bot_behavior(time_delay, on=False):
             cardCVV = input("Enter the CVV for the card: ")
             start_time = time.time()
             update_info(name,phone,address,city, state, zip, cardNumber, cardExpMonth, cardExpYear, cardCVV)
-        #elif(cmd=="viewallstock"):
-        #    view_all(True)
         elif(cmd=="clearcart"):
             clear_cart()
         elif(cmd=="clearmemory"):
             clear_memory()
+        elif(cmd=="print"):
+            if(printMessages):
+                print("MESSAGE PRINTING: OFF")
+                printMessages=False
+            else:
+                print("MESSAGE PRINTING: ON")
+                printMessages=True
         elif(cmd=="help"):
             print("--------------------------------------------------------\nitem: Search for a specific item with "
                   "specific conditions\n\t(Type/Size/Color/Keywords)\nviewall: Find any new items regardless "
                   "of keywords\nupdate: Allow you to update the console information\n"
-                  "maxitems: Update the maximum items the bot can buy\nmaxprice: Update the maximum price the box can "
-                  "buy\nencrypt: Change all keywords to predictive scrambled keywords\n"
-                  "\t(Using your own dictionary, site updates at 8:30)\n"
+                  "items: Update the maximum items the bot can buy\nprice: Update the maximum price the box can "
+                  "buy\nencrypt: Change keywords to predictive scrambled keywords\n"
+                  "\t(Using your own dictionary, site updates at 8:30AM)\n"
                   "decrypt: Read all encrypted keywords normally on drop\n"
-                  "showinfo: Displays settings for the current bot\n"
+                  "info: Displays settings for the current bot\n"
+                  "print: Displays more messages of the backend\n"
                   "--------------------------------------------------------")
         else:
             print(cmd+": is not a recognized command!")
