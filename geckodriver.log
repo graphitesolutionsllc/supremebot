@@ -1929,15 +1929,14 @@ JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?ca
 JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
 [Parent 7084, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
 [Parent 7084, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-1523005414150	geckodriver	INFO	geckodriver 0.20.0
-1523005414167	geckodriver	INFO	Listening on 127.0.0.1:55879
-1523005417218	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.rPoVBkowa1EF"
-Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
-1523005418140	Marionette	INFO	Enabled via --marionette
-Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
-Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
-Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
-Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+[Child 13092, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13092, Chrome_ChildThread][Parent 7084, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 14928, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 14928, Chrome_ChildT[Child 5580, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 9316, Chrome_ChildThrea
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+d VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
 1523005419896	Marionette	INFO	Listening on port 55891
 1523005420330	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
@@ -2008,3 +2007,670 @@ JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb4
 JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
 JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
 JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523009299139	geckodriver	INFO	geckodriver 0.20.0
+1523009299167	geckodriver	INFO	Listening on 127.0.0.1:61898
+1523009302194	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.xHgJTa4TvYpw"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009303024	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009304784	Marionette	INFO	Listening on port 61913
+1523009305332	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 16960, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 16960, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 16960, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 18292, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Chi[Child 2888, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2888, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common[GPU 16196, Chrome_ChildThr
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523009381969	geckodriver	INFO	geckodriver 0.20.0
+1523009381977	geckodriver	INFO	Listening on 127.0.0.1:62178
+1523009385031	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.a947utrJ2ns1"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009385746	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009387324	Marionette	INFO	Listening on port 62190
+1523009388150	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 2944, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 2944, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 17040, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 17040, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromiu[Child 16736, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 16736, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10472, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523009447193	geckodriver	INFO	geckodriver 0.20.0
+1523009447201	geckodriver	INFO	Listening on 127.0.0.1:62433
+1523009450258	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.694APvICm7J9"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009451042	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009452724	Marionette	INFO	Listening on port 62445
+1523009453376	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 19928, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 16256, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 16256, Chrome_ChUnable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009487264	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009488660	Marionette	INFO	Listening on port 62527
+1523009489522	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 8744, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 8744, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 8744, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5080, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5080, Chrome_ChildThread] Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009559486	Marionette	INFO	Listening on port 62797
+1523009560316	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 18384, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 18384, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/commo1523009689914	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.qFfK75f42PJw"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009690518	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009692140	Marionette	INFO	Listening on port 63116
+1523009693034	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 1848, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 1848, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 1848, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4120, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4120, Chrome_ChildThread] WARNING: pipe error: 109: file z:/b[Child 21492, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21492, Chrome_ChildThread] WARNING: pipe error: 109: file z:
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 19536, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4904, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4904, Chrome_ChildThread] WARNING: pipe error:[Child 17472, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 19536, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[[GPU 13280, Chro
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+rpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009839828	Marionette	INFO	Listening on port 63615
+1523009840438	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523009886912	geckodriver	INFO	geckodriver 0.20.0
+1523009886920	geckodriver	INFO	Listening on 127.0.0.1:63824
+1523009889978	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.LzkYNmgt6DvO"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009890572	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009892184	Marionette	INFO	Listening on port 63836
+1523009893110	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523009955893	geckodriver	INFO	geckodriver 0.20.0
+1523009955909	geckodriver	INFO	Listening on 127.0.0.1:64067
+1523009958958	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.Nsceb5x8dNLJ"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009959692	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523009961416	Marionette	INFO	Listening on port 64079
+1523009962086	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 20244, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523010177619	geckodriver	INFO	geckodriver 0.20.0
+1523010177650	geckodriver	INFO	Listening on 127.0.0.1:64589
+1523010180679	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.X0zYN91ZZhKS"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523010181364	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523010183058	Marionette	INFO	Listening on port 64601
+1523010183806	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 20740, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 20740, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7628, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7628, Chrome_ChildThread] WARNING: pipe e[Child 8704, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8704, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 20740, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 20860, Chrome_ChildThread] WARNING: pipe error: 109: 
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Child 1340, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1340, Chrome_ChildThread] WARNING: pipe error: 109[Child 15936, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 15936, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc[Parent 19276, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 17508, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 17508, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/sr[GPU 15924, Chrome_Ch
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 20900, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1892, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1892, Chrome_ChildThread] WARNING: pipe error: 109: file z[Parent 20900, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21168, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21168, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 20900, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10068, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10068, Chrome_ChildThread] WARNING: pipe error:[GPU 1116, Chr
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+4130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 7852, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523011652279	geckodriver	INFO	geckodriver 0.20.0
+1523011652287	geckodriver	INFO	Listening on 127.0.0.1:50908
+1523011655324	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.31dWdrIQkY85"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523011655992	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523011657752	Marionette	INFO	Listening on port 50920
+1523011658462	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 17232, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523011938490	geckodriver	INFO	geckodriver 0.20.0
+1523011938498	geckodriver	INFO	Listening on 127.0.0.1:51480
+1523011941555	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.6pUkqoA9zcL2"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523011942068	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523011943458	Marionette	INFO	Listening on port 51492
+1523011943572	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 19928, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 19928, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1248, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1248, Chrome_ChildThread] WARNING: pipe error: 109: fi[Child 16412, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 16412, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/commo[Parent 19928, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 20660, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 20660, Chrome_ChildThread] WARNING: pipe e*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 10620, Chrome_ChildThread] WAR
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523011990048	geckodriver	INFO	geckodriver 0.20.0
+1523011990056	geckodriver	INFO	Listening on 127.0.0.1:51703
+1523011993097	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.fupR0Ckg2GTD"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523011993568	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523011994994	Marionette	INFO	Listening on port 51715
+1523011995156	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 15960, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 11480, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 11480, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/bui[Chilld/srcd 15484, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 15484, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 9424, Chrome_ChildT
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523012113676	geckodriver	INFO	geckodriver 0.20.0
+1523012113684	geckodriver	INFO	Listening on 127.0.0.1:52005
+1523012116726	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.yRCZv2pMUH7Y"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012117226	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012118604	Marionette	INFO	Listening on port 52017
+1523012118738	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 17232, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523012204862	geckodriver	INFO	geckodriver 0.20.0
+1523012204870	geckodriver	INFO	Listening on 127.0.0.1:52279
+1523012207927	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.Xb0DKP7tCHeA"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012208442	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012209788	Marionette	INFO	Listening on port 52291
+1523012209942	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523012264778	geckodriver	INFO	geckodriver 0.20.0
+1523012264787	geckodriver	INFO	Listening on 127.0.0.1:52511
+1523012267836	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.VwAKn40VFbL2"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012268310	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012269720	Marionette	INFO	Listening on port 52523
+1523012269860	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 2880, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13392, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13392, Chrome_ChildThread] WARNING: pipe error: 109: [Child 17952, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 17952, Chrome_ChildThread] WARNING: pipe error:[Child 17524, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 17524, Chrome_ChildT*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 5464, Chrome_ChildThread]
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523012425322	geckodriver	INFO	geckodriver 0.20.0
+1523012425330	geckodriver	INFO	Listening on 127.0.0.1:52872
+1523012428382	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.ybmoSmj7uPhI"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012428862	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012430244	Marionette	INFO	Listening on port 52884
+1523012430436	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523012467928	geckodriver	INFO	geckodriver 0.20.0
+1523012467936	geckodriver	INFO	Listening on 127.0.0.1:53086
+1523012471000	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.70qTxGhkoGxe"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012471494	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012472842	Marionette	INFO	Listening on port 53100
+1523012473070	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+1523012526968	geckodriver	INFO	geckodriver 0.20.0
+1523012526975	geckodriver	INFO	Listening on 127.0.0.1:53324
+1523012530010	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.KAgWOarVbruG"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012530490	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012531848	Marionette	INFO	Listening on port 53336
+1523012532032	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523012562905	geckodriver	INFO	geckodriver 0.20.0
+1523012562913	geckodriver	INFO	Listening on 127.0.0.1:53531
+1523012565947	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.Hw06STHUWQEI"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012566446	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012567872	Marionette	INFO	Listening on port 53543
+1523012567990	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+1523012656784	geckodriver	INFO	geckodriver 0.20.0
+1523012656792	geckodriver	INFO	Listening on 127.0.0.1:53825
+1523012659838	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.tPvzf4zZX4Xd"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012660374	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523012661752	Marionette	INFO	Listening on port 53837
+1523012661874	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 1340, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21472, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21472, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/b[uild/src/ipc/chrComiumh/ild 360, Csrhrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 360, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 32, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 32, Chrome_ChildThread] WARNING: pipe e*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 21152, Ch
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523013100760	geckodriver	INFO	geckodriver 0.20.0
+1523013100768	geckodriver	INFO	Listening on 127.0.0.1:54604
+1523013103825	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.I7R1ynIq3keX"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013104328	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013105706	Marionette	INFO	Listening on port 54616
+1523013105838	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+1523013387053	geckodriver	INFO	geckodriver 0.20.0
+1523013387061	geckodriver	INFO	Listening on 127.0.0.1:55106
+1523013390127	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.dPr3wlokCeFb"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013390632	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013391974	Marionette	INFO	Listening on port 55118
+1523013392186	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 19172, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 796[Child 20756, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 20756, Chrome_ChildThread] WARNING: pipe err[GPU 20788, Chrome_ChildThread]
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013555554	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013556938	Marionette	INFO	Listening on port 55468
+1523013557046	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 11968, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 11968, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[[Child 9064, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9064, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/co[*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 15988, Chr
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523013718020	geckodriver	INFO	geckodriver 0.20.0
+1523013718028	geckodriver	INFO	Listening on 127.0.0.1:55815
+1523013721067	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.9j41ruswC03i"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013721528	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013722930	Marionette	INFO	Listening on port 55827
+1523013723122	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 16168, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 16168, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 16168, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21432, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 21432, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 16620, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 16620, Chrome_ChildThread] WARNING: pipe [Child 18560, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 18560, Chrome_ChildThread] WAR*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 8776, Chrome_Ch
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523013842462	geckodriver	INFO	geckodriver 0.20.0
+1523013842470	geckodriver	INFO	Listening on 127.0.0.1:56141
+1523013845520	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.Oesc1Vk5HDWT"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013846052	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013847454	Marionette	INFO	Listening on port 56153
+1523013847572	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 5364, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523013932135	geckodriver	INFO	geckodriver 0.20.0
+1523013932143	geckodriver	INFO	Listening on 127.0.0.1:56449
+1523013935194	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.q2LmKmrjDY7f"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013935658	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013937068	Marionette	INFO	Listening on port 56463
+1523013937242	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 14600, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523013984609	geckodriver	INFO	geckodriver 0.20.0
+1523013984617	geckodriver	INFO	Listening on 127.0.0.1:56721
+1523013987665	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.23ejCsCtAWzD"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013988170	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523013989534	Marionette	INFO	Listening on port 56734
+1523013989718	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 18296, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 18296, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 18296, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5628, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5628, Chrome_ChildThread] WARNING: pipe error: 1[Child 18812, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 18812, Chrome_ChildThread] WARNING: pipe error: 109: file z*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 5080, Chro
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523014055674	geckodriver	INFO	geckodriver 0.20.0
+1523014055682	geckodriver	INFO	Listening on 127.0.0.1:56990
+1523014058736	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.ccKUmi8nEuZd"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014059236	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014060594	Marionette	INFO	Listening on port 57003
+1523014060804	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 18824, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 18824, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 15860, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 15860, Chrome_ChildThread] WARNING: pipe e[Child 15752, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 15752, Chrome_ChildThrea[Parent 18824, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8896, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8896, Chrome_ChildThread] WARNING: pipe[GPU 16524, Chrome_ChildThread] WA
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1523014394190	geckodriver	INFO	geckodriver 0.20.0
+1523014394199	geckodriver	INFO	Listening on 127.0.0.1:57578
+1523014397237	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.tLrBW7rAOzZP"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014397696	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014399040	Marionette	INFO	Listening on port 57590
+1523014399252	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+[Parent 15220, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1523014814588	geckodriver	INFO	geckodriver 0.20.0
+1523014814596	geckodriver	INFO	Listening on 127.0.0.1:58305
+1523014817640	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.q6XxeSEK8GML"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014818140	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014819644	Marionette	INFO	Listening on port 58318
+1523014819656	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript error: https://supreme-images.s3.amazonaws.com/us-zipcodes/1461.js?callback=w, line 1: TypeError: w is not a function
+1523014876576	geckodriver	INFO	geckodriver 0.20.0
+1523014876584	geckodriver	INFO	Listening on 127.0.0.1:58533
+1523014879637	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\Duffy\\AppData\\Local\\Temp\\rust_mozprofile.SdStUcD9tBAP"
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014880140	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\Duffy\AppData\Local\openvr\openvrpaths.vrpath
+1523014881686	Marionette	INFO	Listening on port 58546
+1523014882752	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: http://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+JavaScript warning: https://d17ol771963kd3.cloudfront.net/assets/application-fdb400886804130d087a7f4da268b143.js, line 18489: unreachable code after return statement
+[Parent 18516, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2052, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2052, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 6388, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 6388, Chrome_ChildThread] WARNING: pipe error: 109: file z[Child 7344, Chrome_ChildThread] WARNING: pipe error: 109: file z*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 18984, Chrome_ChildThread] WARNING: pip
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+

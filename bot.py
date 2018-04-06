@@ -2,11 +2,10 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 root_url = 'http://www.supremenewyork.com' # Helper to print URLs with only the partial
 all_url = 'http://www.supremenewyork.com/shop/all' # Main entrance point
@@ -24,13 +23,14 @@ buyerZIP='14610'
 buyerState = 'FL'
 buyerCountry='USA'
 buyerCardType='Visa'
-buyerCardNumber='4060645434329715'
+buyerCardNumber='4111111111111111'
 buyerCardExpMonth='03'
 buyerCardExpYear='2021'
 buyerCardCVV = '917'
 
 buyerMaxPrice = 1000 # Default Max Price
 moneyMode = False # Will ignore maxPrice and listen to itemNumbers strictly (when False)
+speedMode = False # Will checkout and be done after getting the first item in the cart (AKA Mad DoGG)
 currentPrice = 10 # This starts at 10 due to the ship and handle fee
 
 encryp = False # Scrambling user input to website
@@ -75,11 +75,12 @@ def show_info():
     Displays the settings the bot is running
     :return: Prints the settings to the users console
     """
-    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, printMessages, moneyMode
+    global currentItems, currentPrice, buyerMaxPrice, maxItems, url_list, encrypt, decrypt, \
+        printMessages, moneyMode, speedMode
 
     print("Items: "+str(currentItems)+"/"+str(maxItems)+"\nPrice: $"+str(currentPrice)+"/$"+str(buyerMaxPrice)+
-          "\nEncrypt: "+str(encryp)+"\nDecrypt: "+str(decryp) + "\nMoney Priority: " + str(moneyMode)
-          +"\nPrint Messages: "+str(printMessages)+"\nURLS(in cart): ")
+          "\nEncrypt: "+str(encryp)+"\nDecrypt: "+str(decryp) + "\nSpeed Checkout: "+ str(speedMode)
+          + "\nMoney Priority: " + str(moneyMode) +"\nPrint Messages: "+str(printMessages)+"\nURLS(in cart): ")
     if(len(url_list)==0): print("\t\t\t   {NONE}")
     for url in url_list:
         print("\t http://www.supremenewyork.com" + url)
@@ -96,22 +97,6 @@ def clear_memory():
     currentItems = 0
     if(printMessages): print("MEMORY IS CLEAR: your billing and card info has not been changed")
 
-def empty_cart():
-    """
-    Clear the cart from the console
-    :return: An empty cart
-    """
-    global cart_list, currentItems, currentPrice
-    for x in range(0, currentItems):
-        driver.get(root_url + "/shop/cart/")
-        byes = driver.find_elements_by_class_name("intform")
-        for bye in byes:
-            bye.click()
-            print("Removed from cart")
-    currentItems = 0
-    currentPrice = 0
-    clear_memory()
-    if (printMessages): print("CART IS EMPTY: There may still be an item to two, remove by hand")
 
 def check_stock(url):
     """
@@ -173,13 +158,9 @@ def get_color(url):
     :param url: (String) URL to obtain the color from
     :return: (String) Color of the item
     """
-    color = ""
     source = requests.get(root_url + url).text
     soup = BeautifulSoup(source, 'html.parser')
-    color_raw = str(soup.find_all("p", class_='style protect'))
-    colorr = color_raw.split(">")
-    color = colorr[1].split("<")[0]
-    return color
+    return(str(soup.find_all("p", class_='style protect')).split(">")[1].split("<")[0])
 
 def get_title(url):
     """
@@ -213,7 +194,6 @@ def check_unique(url):
         for b in bang:
             for s in spl:
                 if(b==s):
-                    #print("Already viewed this item/style")
                     return False
     return True
 
@@ -227,17 +207,6 @@ def update_url(url):
     check_unique(url)
     url_list.append(url)
 
-def get_description(url):
-    """
-    Takes a URL and return the description of the product
-    :param url: (String) URL to investigate
-    :return: String of the description
-    """
-    driver.get("http://www.supremenewyork.com" + url)
-    harvest = driver.find_elements_by_class_name("description")
-    desc = harvest[0].text
-    return desc
-
 def add_item(url, size=None):
     """
     Adds an item to the cart using a url and a size or style if available
@@ -250,9 +219,8 @@ def add_item(url, size=None):
     source = requests.get(root_url+url).text
     soup = BeautifulSoup(source, 'html.parser')
     price = soup.find("p", class_='price')
-    #print(price)
     price = int(price.text[1:4])
-    if(moneyMode and (((currentPrice+price))*1.075)>buyerMaxPrice):
+    if(moneyMode and (((currentPrice+price))*1.07545)>buyerMaxPrice):
         if(printMessages): print("\tUNABLE TO ADD TO CART: TOO EXPENSIVE")
         return 0
     driver.get("http://www.supremenewyork.com" + url)
@@ -262,13 +230,9 @@ def add_item(url, size=None):
         except NoSuchElementException:
             if(printMessages): print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-    wait = WebDriverWait(driver, 2)
-    something = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="add-remove-buttons"]/input')))
     driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
-    #time.sleep(.03)
     cart_list.append(url)
-    if(printMessages):
-        print("\nADDED: {" + get_title(url) + "} to the cart\n\tColor: "+get_color(url)+
+    if(printMessages): print("\nADDED: {" + get_title(url) + "} to the cart\n\tColor: "+get_color(url)+
               "\n--------------------------------------------------------\n\t($"
                   +str(currentPrice)+"+$"+str(price)+") < $"+str(buyerMaxPrice) + "\n")
     currentPrice += price
@@ -282,7 +246,6 @@ def checkout():
     :return: A Captcha or Checkout items for the session
     """
     print("--------------------------------------------------------\nAttempting to checkout... \n...\n...\n...")
-    time.sleep(.3)
     try:
         driver.get(checkout_url)
         try:
@@ -308,8 +271,9 @@ def checkout():
         ord_cvv.send_keys(buyerCardCVV)
         Select(driver.find_element_by_id('credit_card_month')).select_by_visible_text(buyerCardExpMonth)
         Select(driver.find_element_by_id('credit_card_year')).select_by_visible_text(buyerCardExpYear)
-        ord_terms = driver.find_element_by_id('order_terms')
-        ord_terms.send_keys(" ")
+        element = driver.find_element_by_xpath(".//*[@id='order_terms']")
+        webdriver.ActionChains(driver).move_to_element(element).move_by_offset(10, 10).click(element).perform()
+        time.sleep(.1)
         driver.find_element_by_tag_name("form").submit()
     except NoSuchElementException:
         print("Error: Could not Checkout!")
@@ -332,11 +296,9 @@ def item_target(item, size=None, keyWords=[], color=None):
     :return:
     """
     global maxItems, buyerMaxPrice, printMessages, currentItems
-    new_url = all_url+"/"+item
-    source = requests.get(new_url).text
+    source = requests.get(all_url+"/"+item).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
-    itemCount = 0
     keywordCount =0
     hits = []
     for item in items:
@@ -369,11 +331,10 @@ def item_target(item, size=None, keyWords=[], color=None):
                     key = key.replace("®","")
                     for our in keyWords:
                         if(key.upper()==our.upper() and (size==None or check_size(url, size)) and check_unique(url)
-                                and (maxItems>itemCount) and check_stock(url)):
+                                and (maxItems>len(currentItems)) and check_stock(url)):
                             if(printMessages): print("KEYWORK MATCH: "+ key + ":"+our)
                             add_item(url, size)
                             update_url(url)
-                            itemCount+=1
                 if(len(cart_list)==maxItems):
                     print("\nReached Maximum Item Limit!")
                     checkout()
@@ -383,7 +344,7 @@ def item_target(item, size=None, keyWords=[], color=None):
         print("\nChecked all URLS:\n\t\t\t\t{"+str(currentItems)+"/"+str(maxItems)+"} MATCHED")
         checkout()
     else:
-        print("\nYOU HAVE NO ITEMS IN YOUR CART!")
+        print("\nNO ITEMS WERE AVAILABLE FOR PURCHASE!")
         if(keywordCount>0): print("\t("+str(keywordCount)+") SOLD OUT items returned TRUE")
 
 def view_all():
@@ -391,12 +352,11 @@ def view_all():
     View all of the instock items and add them to the cart
     :return:
     """
-    global maxItems, url_list, printMessages
+    global maxItems, url_list, printMessages, currentItems
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
     for item in items:
-        #print(item) #DEBUG LINE
         s = str(item).split('"')
         if("sold_out_tag" in s):
             pass
@@ -412,7 +372,7 @@ def view_all():
                 if(printMessages): print("\nReached Maximum Item Limit! ("+str(maxItems)+"/"+str(maxItems)+")")
                 checkout()
                 return 0
-    if(printMessages): print("CHECKED ALL URLs")
+    if(printMessages): print("\nChecked all URLS:\n\t\t\t\t{"+str(currentItems)+"/"+str(maxItems)+"} MATCHED")
     if(len(cart_list)>0): checkout()
 
 def update_info():
@@ -511,9 +471,6 @@ def bot_behavior(time_delay, on=False):
         elif(cmd=="update"):
             start_time = time.time()
             update_info()
-        elif(cmd=="emptycart"):
-            start_time = time.time()
-            empty_cart()
         elif(cmd=="clearmemory"):
             start_time = time.time()
             clear_memory()
@@ -538,7 +495,7 @@ def bot_behavior(time_delay, on=False):
             print("--------------------------------------------------------\nitem: Search for a specific item with "
                   "specific conditions\n\t\t{Type/Size/Color/Keywords}\nviewall: Find any new items regardless "
                   "of keywords\nupdate: Allow you to update the console information\n"
-                  "items: Update the maximum items the bot can buy\nemptycart: empty the cart from the shell\n"
+                  "items: Update the maximum items the bot can buy\n"
                   "price: Update the maximum price the box can "
                   "buy\nencrypt: Change keywords to predictive scrambled keywords\n"
                   "decrypt: Read all encrypted keywords normally on drop\n"
