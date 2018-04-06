@@ -1,10 +1,21 @@
+"""
+Supreme® Bot 2018
+Author: Daniel Duffy
+
+Using BeautifulSoup and selenium for web-browser control, a predictive keyword searching bot
+that will be able to adaptively overcome the site's security by learning it, itself.
+
+    Python:          3.6.4
+    BeautifulSoup4:  4.5.0
+    Requests:        2.18.4
+    Selenium:        3.11.0
+"""
 import requests
 import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 root_url = 'http://www.supremenewyork.com'  # Helper to print URLs with only the partial
@@ -284,11 +295,13 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
+    try:
+        driver.get(checkout_url)
+    except WebDriverException:
+        print("ERROR: Could not retreive the page")
     global currentPrice, currentItems
     print("--------------------------------------------------------\nAttempting to checkout... \n...\n...\n...")
-    driver.get(checkout_url)
     final = "%0.2f" % (float(currentPrice * 1.0754))
-
     try:
         ord_billing_name = driver.find_element_by_id('order_billing_name')
         ord_billing_name.send_keys(buyerName)
@@ -300,18 +313,18 @@ def checkout():
     ord_tele.send_keys(buyerTele)
     ord_adress = driver.find_element_by_id('bo')
     ord_adress.send_keys(buyerAdress)
+    ord_zip = driver.find_element_by_id('order_billing_zip')
+    ord_zip.send_keys(buyerZIP)
     ord_billing_city = driver.find_element_by_id('order_billing_city')
     ord_billing_city.send_keys(buyerCity)
     Select(driver.find_element_by_id('order_billing_state')).select_by_visible_text(buyerState)
-    ord_zip = driver.find_element_by_id('order_billing_zip')
-    ord_zip.send_keys(buyerZIP)
     Select(driver.find_element_by_id('order_billing_country')).select_by_visible_text(buyerCountry)
     ord_cnb = driver.find_element_by_id("nnaerb")
     ord_cnb.send_keys(buyerCardNumber)
-    ord_cvv = driver.find_element_by_id("orcer")
-    ord_cvv.send_keys(buyerCardCVV)
     Select(driver.find_element_by_id('credit_card_month')).select_by_visible_text(buyerCardExpMonth)
     Select(driver.find_element_by_id('credit_card_year')).select_by_visible_text(buyerCardExpYear)
+    ord_cvv = driver.find_element_by_id("orcer")
+    ord_cvv.send_keys(buyerCardCVV)
     element = driver.find_element_by_xpath(".//*[@id='order_terms']")
     webdriver.ActionChains(driver).move_to_element(element).move_by_offset(10, 10).click(element).perform()
     driver.find_element_by_tag_name("form").submit()
@@ -344,9 +357,7 @@ def item_target(item, size=None, key_words=[], color=None):
         key = str(item).split(">")
         item_keys = key[6][:-3].split(" ")
         item_color = key[10][:-3]
-        if item_color.upper() == color.upper():
-            if printMessages:
-                print("\tSAME COLOR\tSAME COLOR")
+
         if "sold_out_tag" in s:
             sold_keys = key[8][:-3].split(" ")
             for key in sold_keys:
@@ -359,6 +370,11 @@ def item_target(item, size=None, key_words=[], color=None):
                                   "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
                         hits.append(get_root(url))
         else:
+            print("HOWDY: " + item_color.upper() + ":" + color.upper())
+            if str(item_color.upper()) == str(color.upper()):
+                if printMessages:
+                    print("COLOR MATCH: ADDED TO CART")
+                add_item(url, size)
             if url in url_list:
                 pass
             else:
@@ -559,5 +575,10 @@ def bot_behavior(time_delay, on=False):
             print(cmd + ": is not a recognized command!")
 
 
-"""Main Logic Call with half of a second of rest between iterations"""
+"""
+Main Logic Call with half of a second of rest between iterations,
+    starting off turned off for debugging reasons. A False start
+    makes this act like a shell, a True start and whatever the first
+    command is, it will repeat
+"""
 bot_behavior(.5, False)

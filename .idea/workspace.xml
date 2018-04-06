@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb0dc08d-3ad1-4478-bb43-d4ee41e475af" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
       <change beforePath="$PROJECT_DIR$/geckodriver.log" afterPath="$PROJECT_DIR$/geckodriver.log" />
     </list>
@@ -18,10 +17,10 @@
       <file leaf-file-name="bot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="465" column="21" lean-forward="false" selection-start-line="465" selection-start-column="21" selection-end-line="465" selection-end-column="21" />
+            <state relative-caret-position="561">
+              <caret line="17" column="81" lean-forward="false" selection-start-line="17" selection-start-column="81" selection-end-line="17" selection-end-column="81" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#337#352#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -215,7 +214,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#337#352#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -241,7 +240,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#337#352#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -267,7 +266,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#337#352#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -285,7 +284,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#337#352#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -316,10 +315,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="465" column="21" lean-forward="false" selection-start-line="465" selection-start-column="21" selection-end-line="465" selection-end-column="21" />
+        <state relative-caret-position="561">
+          <caret line="17" column="81" lean-forward="false" selection-start-line="17" selection-start-column="81" selection-end-line="17" selection-end-column="81" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#337#352#0" expanded="true" />
           </folding>
         </state>
       </provider>
