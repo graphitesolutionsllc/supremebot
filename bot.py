@@ -16,13 +16,20 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+chrome_options = Options()
+chrome_options.add_argument("--js-flags=--harmony")
 
 
 root_url = 'http://www.supremenewyork.com'  # Helper to print URLs with only the partial
 all_url = 'http://www.supremenewyork.com/shop/all'  # Main entrance point
-checkout_url = "https://www.supremenewyork.com/checkout"  # Checkout URL
+checkout_url = "http://www.supremenewyork.com/checkout"  # Checkout URL
 
-driver = webdriver.Firefox()  # Driver for FireFox | driver = webdriver.Chrome() # Driver for Chrome
+#driver = webdriver.Firefox()  # Driver for FireFox | 
+driver = webdriver.Chrome(chrome_options=chrome_options) # Driver for Chrome
 
 buyerName = 'Bob Evans'  # Dummy information to be replaced on startup
 buyerMail = 'fake_email@gmail.com'
@@ -259,16 +266,16 @@ def add_item(url, size=None):
     """
     global currentPrice, currentItems, cart_list, buyerMaxPrice, printMessages, moneyMode
     driver.get("http://www.supremenewyork.com" + url)
-    source = requests.get(root_url+url).text
-    soup = BeautifulSoup(source, 'html.parser')
-    price = int(soup.find("p", class_='price').text[1:4])
+
+    price = int(driver.find_element_by_xpath("//p[@class='price']").text[1:4])
     if moneyMode and ((currentPrice+price)*1.07545) > buyerMaxPrice:
         if printMessages:
             print("\tUNABLE TO ADD TO CART: TOO EXPENSIVE")
         return 0
     if size is not None:
         try:
-            Select(driver.find_element_by_id('s')).select_by_visible_text(size)
+            element = driver.find_element_by_xpath("//*[@id='s']")
+            element.send_keys(size)
         except NoSuchElementException:
             if printMessages :
                 print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size + " IN STOCK!")
@@ -284,6 +291,7 @@ def add_item(url, size=None):
                   str(currentPrice) + "+$" + str(price) + ") < $" + str(buyerMaxPrice) + "\n")
         currentPrice += price
         currentItems += 1
+        return 0
     except NoSuchElementException:
         if printMessages:
             print("ERROR: ITEM IS SOLD OUT/UNAVAILABLE")
@@ -296,38 +304,56 @@ def checkout():
     :return: A Captcha or Checkout items for the session
     """
     try:
-        driver.get(checkout_url)
+        driver.get("https://www.supremenewyork.com/checkout")
     except WebDriverException:
-        print("ERROR: Could not retreive the page")
+        print("ERROR: Could not retrieve the page")
     global currentPrice, currentItems
     print("--------------------------------------------------------\nAttempting to checkout... \n...\n...\n...")
     final = "%0.2f" % (float(currentPrice * 1.0754))
-    try:
-        ord_billing_name = driver.find_element_by_id('order_billing_name')
-        ord_billing_name.send_keys(buyerName)
-    except WebDriverException:
-        print("ERROR: Could not find the Billing Name Text Field")
-    ord_email = driver.find_element_by_id('order_email')
-    ord_email.send_keys(buyerMail)
-    ord_tele = driver.find_element_by_id('order_tel')
-    ord_tele.send_keys(buyerTele)
-    ord_adress = driver.find_element_by_id('bo')
-    ord_adress.send_keys(buyerAdress)
-    ord_zip = driver.find_element_by_id('order_billing_zip')
-    ord_zip.send_keys(buyerZIP)
-    ord_billing_city = driver.find_element_by_id('order_billing_city')
-    ord_billing_city.send_keys(buyerCity)
-    Select(driver.find_element_by_id('order_billing_state')).select_by_visible_text(buyerState)
-    Select(driver.find_element_by_id('order_billing_country')).select_by_visible_text(buyerCountry)
-    ord_cnb = driver.find_element_by_id("nnaerb")
-    ord_cnb.send_keys(buyerCardNumber)
-    Select(driver.find_element_by_id('credit_card_month')).select_by_visible_text(buyerCardExpMonth)
-    Select(driver.find_element_by_id('credit_card_year')).select_by_visible_text(buyerCardExpYear)
-    ord_cvv = driver.find_element_by_id("orcer")
-    ord_cvv.send_keys(buyerCardCVV)
-    element = driver.find_element_by_xpath(".//*[@id='order_terms']")
-    webdriver.ActionChains(driver).move_to_element(element).move_by_offset(10, 10).click(element).perform()
-    driver.find_element_by_tag_name("form").submit()
+    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_billing_name']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_billing_name']")
+    ord_billing_name.send_keys(buyerName)
+
+    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_email']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_email']")
+    ord_billing_name.send_keys(buyerMail)
+
+    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_tel']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_tel']")
+    ord_billing_name.send_keys(buyerTele)
+
+    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='bo']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='bo']")
+    ord_billing_name.send_keys(buyerAdress)
+
+    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_billing_zip']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_billing_zip']")
+    ord_billing_name.send_keys(buyerZIP)
+
+    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_billing_city']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_billing_city']")
+    ord_billing_name.send_keys(buyerCity)
+
+
+    Select(driver.find_element_by_xpath("//*[@id='order_billing_state']")).select_by_visible_text(buyerState)
+    Select(driver.find_element_by_xpath("//*[@id='order_billing_country']")).select_by_visible_text(buyerCountry)
+
+    #WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='nnaerb']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='nnaerb']")
+    ord_billing_name.send_keys(buyerCardNumber)
+
+    Select(driver.find_element_by_xpath("//*[@id='credit_card_month']")).select_by_visible_text(buyerCardExpMonth)
+    Select(driver.find_element_by_xpath("//*[@id='credit_card_year']")).select_by_visible_text(buyerCardExpYear)
+
+    #WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='orcer']")))
+    ord_billing_name = driver.find_element_by_xpath("//*[@id='orcer']")
+    ord_billing_name.send_keys(buyerCardCVV)
+
+    element = driver.find_element_by_xpath(".//*[@id='order_terms']").send_keys(" ")
+    #webdriver.ActionChains(driver).move_to_element(element).click(element).perform()
+
+    #driver.find_element_by_tag_name("form").submit()
+    driver.find_element_by_xpath('//input[@type="submit"]').click()
 
     print("CHECKOUT COMPLETE:\n\t("+str(currentItems)+"/"+str(maxItems) + ") ITEMS: " + "$"+str(final)+"/$"
           + str(buyerMaxPrice)+"\n--------------------------------------------------------")
@@ -372,8 +398,7 @@ def item_target(item, size=None, key_words=None, color=None):
         else:
             #  print("HOWDY: " + item_color.upper() + ":" + color.upper()) Color print statement
             if str(item_color.upper()) == str(color.upper()):
-                if printMessages:
-                    print("COLOR MATCH: ADDED TO CART")
+                print("\tCOLOR MATCH: ADDED TO CART")
                 add_item(url, size)
             if url in url_list:
                 pass
@@ -574,7 +599,7 @@ def bot_behavior(time_delay, on=False):
                 driver.quit()
             except WebDriverException:
                 if printMessages:
-                    print("ERROR QUITING FIREFOX!")
+                    print("ERROR QUITING GOOGLE CHROME!")
         else:
             print(cmd + ": is not a recognized command!")
 
