@@ -303,6 +303,7 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
+    start_time = time.time()
     try:
         driver.get("https://www.supremenewyork.com/checkout")
     except WebDriverException:
@@ -349,8 +350,7 @@ def checkout():
     ord_billing_name = driver.find_element_by_xpath("//*[@id='orcer']")
     ord_billing_name.send_keys(buyerCardCVV)
 
-    reCaptcha = driver.find_element_by_xpath("//*[@id='numbc']")  # captcha input
-    reCaptcha.send_keys('1')
+    driver.find_element_by_xpath("//*[@id='numbc']").send_keys('1') # reCaptcha input
 
     driver.find_element_by_xpath(".//*[@id='order_terms']").send_keys(" ")
     #webdriver.ActionChains(driver).move_to_element(element).click(element).perform()
@@ -360,6 +360,7 @@ def checkout():
 
     print("CHECKOUT COMPLETE:\n\t("+str(currentItems)+"/"+str(maxItems) + ") ITEMS: " + "$"+str(final)+"/$"
           + str(buyerMaxPrice)+"\n--------------------------------------------------------")
+    print("Check Out Time:\n------------------- %.6f seconds -------------------\n" % (time.time() - start_time))
 
 
 def item_target(item, size=None, key_words=None, color=None):
