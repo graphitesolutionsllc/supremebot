@@ -28,7 +28,7 @@ root_url = 'http://www.supremenewyork.com'  # Helper to print URLs with only the
 all_url = 'http://www.supremenewyork.com/shop/all'  # Main entrance point
 checkout_url = "http://www.supremenewyork.com/checkout"  # Checkout URL
 
-#driver = webdriver.Firefox()  # Driver for FireFox | 
+#driver = webdriver.Firefox()  # Driver for FireFox |
 driver = webdriver.Chrome(chrome_options=chrome_options) # Driver for Chrome
 
 buyerName = 'Bob Evans'  # Dummy information to be replaced on startup
@@ -349,7 +349,10 @@ def checkout():
     ord_billing_name = driver.find_element_by_xpath("//*[@id='orcer']")
     ord_billing_name.send_keys(buyerCardCVV)
 
-    element = driver.find_element_by_xpath(".//*[@id='order_terms']").send_keys(" ")
+    reCaptcha = driver.find_element_by_xpath("//*[@id='numbc']")  # captcha input
+    reCaptcha.send_keys('1')
+
+    driver.find_element_by_xpath(".//*[@id='order_terms']").send_keys(" ")
     #webdriver.ActionChains(driver).move_to_element(element).click(element).perform()
 
     #driver.find_element_by_tag_name("form").submit()
@@ -593,7 +596,7 @@ def bot_behavior(time_delay, on=False):
                   "quit: Closes the browser and exits the loop\n"
                   "--------------------------------------------------------")
         elif cmd == "quit":
-            print("Closing Mozilla FireFox\n\tEnding processes...")
+            print("Closing GOOGLE CHROME\n\tEnding processes...")
             time.sleep(1)
             try:
                 driver.quit()
