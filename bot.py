@@ -46,12 +46,14 @@ buyerCardExpYear = '2021'
 buyerCardCVV = '917'
 
 buyerMaxPrice = 1000  # Default Max Price
-moneyMode = False  # Will ignore maxPrice and listen to itemNumbers strictly (when False)
 currentPrice = 10  # This starts at 10 due to the ship and handle fee
 
 encryp = False  # Scrambling user input to website
 decryp = False  # De-Scrambling website input to user
-printMessages = False  # Message print boolean flag
+printMessages = True  # Message print boolean flag
+moneyMode = False  # Will ignore maxPrice and listen to itemNumbers strictly (when False)
+colorMode = True  # Will ignore color choice for quickest option (when False)
+fastMode = True  # Will ignore color choice for quickest option (when False)
 
 currentItems = 0  # Current number of items in the cart
 maxItems = 5  # Maximum amount of items allowed to checkout
@@ -197,7 +199,7 @@ def get_color(url):
     """
     source = requests.get(root_url + url).text
     soup = BeautifulSoup(source, 'html.parser')
-    return str(soup.find_all("p", class_='style protect')).split(">")[1].split("<")[0]
+    return str(soup.find_all("p", class_='style protect')).split(">")[1].split("<")[0].upper()
 
 
 def get_title(url):
@@ -280,8 +282,6 @@ def add_item(url, size=None):
             if printMessages :
                 print("{"+get_title(url)+"(Color: "+get_color(url)+")}: DID NOT HAVE A " + size + " IN STOCK!")
             return 0
-        if printMessages:
-            print("ERROR: UNABLE TO ADD TO CART")
     try:
         driver.find_element_by_xpath('//*[@id="add-remove-buttons"]/input').click()
         cart_list.append(url)
@@ -303,59 +303,28 @@ def checkout():
     (Ensure that this information is 100% correct before checkout)
     :return: A Captcha or Checkout items for the session
     """
+    driver.get("https://www.supremenewyork.com/checkout")
     start_time = time.time()
-    try:
-        driver.get("https://www.supremenewyork.com/checkout")
-    except WebDriverException:
-        print("ERROR: Could not retrieve the page")
     global currentPrice, currentItems
     print("--------------------------------------------------------\nAttempting to checkout... \n...\n...\n...")
     final = "%0.2f" % (float(currentPrice * 1.0754))
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_billing_name']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_billing_name']")
-    ord_billing_name.send_keys(buyerName)
-
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_email']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_email']")
-    ord_billing_name.send_keys(buyerMail)
-
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_tel']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_tel']")
-    ord_billing_name.send_keys(buyerTele)
-
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='bo']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='bo']")
-    ord_billing_name.send_keys(buyerAdress)
-
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_billing_zip']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_billing_zip']")
-    ord_billing_name.send_keys(buyerZIP)
-
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_billing_city']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='order_billing_city']")
-    ord_billing_name.send_keys(buyerCity)
-
+    #time.sleep(.5)
+    driver.find_element_by_xpath("//*[@id='order_billing_name']").send_keys(buyerName)
+    driver.find_element_by_xpath("//*[@id='order_email']").send_keys(buyerMail)
+    driver.find_element_by_xpath("//*[@id='order_tel']").send_keys(buyerTele)
+    driver.find_element_by_xpath("//*[@id='bo']").send_keys(buyerAdress)
+    driver.find_element_by_xpath("//*[@id='order_billing_zip']").send_keys(buyerZIP)
+    driver.find_element_by_xpath("//*[@id='order_billing_city']").send_keys(buyerCity)
+    driver.find_element_by_xpath("//*[@id='nnaerb']").send_keys(buyerCardNumber)
+    driver.find_element_by_xpath("//*[@id='orcer']").send_keys(buyerCardCVV)
+    driver.find_element_by_xpath("//*[@id='numbc']").send_keys('1') # reCaptcha input
+    driver.find_element_by_xpath(".//*[@id='order_terms']").send_keys(" ")
 
     Select(driver.find_element_by_xpath("//*[@id='order_billing_state']")).select_by_visible_text(buyerState)
     Select(driver.find_element_by_xpath("//*[@id='order_billing_country']")).select_by_visible_text(buyerCountry)
-
-    #WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='nnaerb']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='nnaerb']")
-    ord_billing_name.send_keys(buyerCardNumber)
-
     Select(driver.find_element_by_xpath("//*[@id='credit_card_month']")).select_by_visible_text(buyerCardExpMonth)
     Select(driver.find_element_by_xpath("//*[@id='credit_card_year']")).select_by_visible_text(buyerCardExpYear)
 
-    #WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='orcer']")))
-    ord_billing_name = driver.find_element_by_xpath("//*[@id='orcer']")
-    ord_billing_name.send_keys(buyerCardCVV)
-
-    driver.find_element_by_xpath("//*[@id='numbc']").send_keys('1') # reCaptcha input
-
-    driver.find_element_by_xpath(".//*[@id='order_terms']").send_keys(" ")
-    #webdriver.ActionChains(driver).move_to_element(element).click(element).perform()
-
-    #driver.find_element_by_tag_name("form").submit()
     driver.find_element_by_xpath('//input[@type="submit"]').click()
 
     print("CHECKOUT COMPLETE:\n\t("+str(currentItems)+"/"+str(maxItems) + ") ITEMS: " + "$"+str(final)+"/$"
@@ -375,53 +344,85 @@ def item_target(item, size=None, key_words=None, color=None):
     :param color: (String) Requested color of the item
     :return:
     """
-    global maxItems, buyerMaxPrice, printMessages, currentItems
+    global maxItems, buyerMaxPrice, printMessages, currentItems, colorMode, fastMode
     source = requests.get(all_url+"/"+item).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
     key_count = 0
+    item_count = 0
     hits = []
-    for item in items:
-        s = str(item).split('"')
+    y = 0
+    for x in range(item_count, len(items)):
+        s = str(items[x]).split('"')
         url = s[3]
-        key = str(item).split(">")
+        hits.append(get_root(url))
+        key = str(items[x]).split(">")
         item_keys = key[6][:-3].split(" ")
         item_color = key[10][:-3]
 
         if "sold_out_tag" in s:
-            sold_keys = key[8][:-3].split(" ")
-            for key in sold_keys:
-                key = key.replace("®", "")
-                for our in key_words:
-                    if(key.upper() == our.upper()) and (get_root(url) not in hits):
-                        key_count += 1
-                        if printMessages:
-                            print("\nSuccessful keywork match: \n\t(" + get_title(url) +
-                                  "{Color: "+get_color(url)+") is SOLD OUT!\n\tURL: http://www.supremenewyork.com"+url)
-                        hits.append(get_root(url))
+            if fastMode:
+                pass
+            else:
+                #sold_keys = str(key).replace("/", " ")
+                sold_keys = key[8][:-3].replace("/", " ").split(" ")
+                for key in sold_keys:
+                    key = key.replace("®", "")
+                    for our in key_words:
+                        if key.upper() == our.upper():  # and (get_root(url) not in hits) Logic for root url
+                            while get_root(url) in hits and y != len(items)-1:
+                                #print("Stuck!" + str(y) + str(len(items)))
+                                if colorMode and color.upper() in get_color(url).split(" "):
+                                    if printMessages:
+                                        print("\nSuccessful Color match: \n\t{"+ get_title(url) +
+                                              "{Color: "+get_color(url)+")")
+                                hits.append(get_root(url))
+                                if printMessages:
+                                    print("\nSuccessful keywork match: \n\t(" + get_title(url) +
+                                          "{Color: " + get_color(
+                                        url) + ") is SOLD OUT!\n\tURL: http://www.supremenewyork.com" + url)
+                                if(y+1<len(items)):
+                                    y += 1
+                                    url = str(items[y]).split('"')[3]
+                            key_count += 1
+                x = y
         else:
             #  print("HOWDY: " + item_color.upper() + ":" + color.upper()) Color print statement
-            if str(item_color.upper()) == str(color.upper()):
-                print("\tCOLOR MATCH: ADDED TO CART")
-                add_item(url, size)
             if url in url_list:
                 pass
             else:
-                if printMessages:
-                    print("\nSuccessful keywork match: \n\t(" + get_title(url)
-                          + "{Color: " + get_color(url) + "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
                 for key in item_keys:
                     key.replace("®", "")
                     for our in key_words:
                         if(key.upper() == our.upper() and (size is None or check_size(url, size)) and check_unique(url)
                                 and (maxItems>currentItems) and check_stock(url)):
-                            if printMessages: print("KEYWORK MATCH: " + key + ":"+our)
-                            add_item(url, size)
-                            update_url(url)
+                            if colorMode and color.upper() in get_color(url).split(" "):
+                                if printMessages:
+                                      print("\nSuccessful keywork match: \n\t(" + get_title(url)
+                                          + "{COLOR MATCH: " + color.capitalize() +
+                                          "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
+
+                                add_item(url, size)
+                                update_url(url)
+                            elif colorMode and color.upper() not in get_color(url).split(" "):
+                                if printMessages:
+                                    print("\nSuccessful keywork match: \n\t(" + get_title(url)
+                                            + "{COLOR FAILURE: " + color.capitalize() +
+                                          "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
+                            if printMessages:
+                                if printMessages:
+                                    print("\nSuccessful keywork match: \n\t(" + get_title(url)
+                                          + "{KEYWORD MATCH: " + key.capitalize()
+                                          + "}) is IN STOCK!\n\tURL: http://www.supremenewyork.com" + url)
+                            if colorMode is False:
+                                add_item(url, size)
+                                update_url(url)
                 if len(cart_list) == maxItems:
                     print("\nReached Maximum Item Limit!")
                     checkout()
                     return 0
+        item_count += 1
+
     if len(cart_list) > 0:
         print("\nChecked all URLS:\n\t\t\t\t{"+str(currentItems)+"/"+str(maxItems)+"} URLs MATCHED")
         checkout()
@@ -436,7 +437,7 @@ def view_all():
     View all of the instock items and add them to the cart
     :return:
     """
-    global maxItems, url_list, printMessages, currentItems
+    global maxItems, url_list, printMessages, currentItems, colorMode
     source = requests.get(all_url).text
     soup = BeautifulSoup(source, 'html.parser')
     items = soup.find_all("div", class_='inner-article')
@@ -493,7 +494,7 @@ def bot_behavior(time_delay, on=False):
     print("\t\t  Welcome to Supreme Bot 2018\n--------------------------------------------------------\n"
           "\t\tType help for a list of commands\n--------------------------------------------------------")
     cmd=""
-    global maxItems, buyerMaxPrice, encryp, decryp, printMessages, moneyMode
+    global maxItems, buyerMaxPrice, encryp, decryp, printMessages, moneyMode, colorMode
     start_time = time.time()
     while cmd != "quit":
         print("------------------- %.6f seconds -------------------" % (time.time() - start_time))
@@ -534,10 +535,16 @@ def bot_behavior(time_delay, on=False):
             view_all()
         elif cmd == "items":
             start_time = time.time()
-            maxItems = int(input("Enter the maximum amount of items: "))
+            try:
+                maxItems = int(input("Enter the maximum amount of items: "))
+            except ValueError:
+                print("\t{ERROR: ENTER A NUMBER!}")
         elif cmd == "price":
             start_time = time.time()
-            buyerMaxPrice = int(input("Enter the maximum amount to spend: $"))
+            try:
+                buyerMaxPrice = int(input("Enter the maximum amount to spend: $"))
+            except ValueError:
+                print("\t{ERROR: ENTER A NUMBER}")
         elif cmd == "info":
             start_time = time.time()
             show_info()
@@ -566,6 +573,14 @@ def bot_behavior(time_delay, on=False):
         elif cmd == "clearmemory":
             start_time = time.time()
             clear_memory()
+        elif cmd == "color":
+            start_time = time.time()
+            if colorMode:
+                print("COLOR MODE: OFF")
+                colorMode = False
+            else:
+                print("COLOR MODE: ON")
+                colorMode = True
         elif cmd == "money":
             start_time = time.time()
             if moneyMode:
